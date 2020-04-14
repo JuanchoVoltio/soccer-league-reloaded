@@ -1,3 +1,5 @@
-package Source
+package soccerleague.model
 
-public void main (String...args)
+public interface Storable {
+
+}
