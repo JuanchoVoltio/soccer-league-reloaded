@@ -1,4 +1,4 @@
-package soccerleague.controller
+package soccerleague.controller;
 
 public class Controller{
 }
