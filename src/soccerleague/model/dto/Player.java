@@ -1,6 +1,9 @@
 package soccerleague.model.dto;
 
-public class Player implements Storable {
+public final class Player implements Storable {
+
+    public static final String POSITION_GK = "GK";
+    public static final String POSITION_DF = "DF";
 
     private String name;
     private String position;
