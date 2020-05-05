@@ -65,8 +65,8 @@ public class Main {
 
     public static boolean updateMethodShouldReturnOk(){
         Database db = new Database();
-        String initalPosition = "GK";
-        String newPosition = "DF";
+        String initalPosition = Player.POSITION_GK;
+        String newPosition = Player.POSITION_DF;
 
         Player testPlayer = new Player("Juan", initalPosition, 23);
         Player updatedTestPlayer = new Player("Juan", newPosition, null);
