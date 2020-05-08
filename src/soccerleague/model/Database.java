@@ -66,20 +66,29 @@ public class Database {
     }
 
     public void update(Storable dto){
-        //TODO: Validar que el dto no sea null.
-        Storable searchResult = findById (dto);
-        if(searchResult != null) {
-            if (dto instanceof Player) {
-                Player playerFound = (Player) searchResult;
-                Player playerDto = (Player) dto;
-                if(playerDto.getPosition() != null && !playerDto.getPosition().isEmpty()){
-                    playerFound.setPosition(playerDto.getPosition());
+        if(dto != null) {
+            Storable searchResult = findById (dto);
+            if(searchResult != null) {
+                if (dto instanceof Player) {
+                    Player playerFound = (Player) searchResult;
+                    Player playerDto = (Player) dto;
+                     if(playerDto.getPosition() != null && !playerDto.getPosition().isEmpty()){
+                         System.out.println("se ha modificado la posición [" + playerDto.getPosition()+ "] por la posición [" + playerFound.getPosition()+"]");
+                         playerFound.setPosition(playerDto.getPosition());
+                     }
+                     if(playerDto.getNumber() != null){
+                         System.out.println("se ha modificado el número [" + playerDto.getNumber()+ "] por el número [" + playerFound.getNumber()+"]");
+                         playerFound.setNumber(playerDto.getNumber());
+                     }
+                } else if (dto instanceof Team) {
+                    Team teamFound = (Team)searchResult;
+                    Team teamDto = (Team)dto;
+                        if(teamDto.getNameTeam() != null && !teamDto.getNameTeam().isEmpty()){
+                            System.out.println("se ha modificado el nombre [" + teamDto.getNameTeam()+ "] por el nombre [" + teamFound.getNameTeam()+"]");
+                            teamFound.setNameTeam(teamDto.getNameTeam());
+                        }
+
                 }
-                if(playerDto.getNumber() != null){
-                    playerFound.setNumber(playerDto.getNumber());
-                }
-            } else if (dto instanceof Team) {
-                this.equipos.set(1, (Team) dto);
             }
         }
     }
