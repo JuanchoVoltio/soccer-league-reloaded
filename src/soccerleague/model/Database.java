@@ -72,7 +72,7 @@ public class Database {
                 if (dto instanceof Player) {
                     Player playerFound = (Player) searchResult;
                     Player playerDto = (Player) dto;
-                     if(playerDto.getPosition() != null && !playerDto.getPosition().isEmpty()){
+                     if(playerDto.getPosition() != null){
                          System.out.println("se ha modificado la posición [" + playerDto.getPosition()+ "] por la posición [" + playerFound.getPosition()+"]");
                          playerFound.setPosition(playerDto.getPosition());
                      }
@@ -83,7 +83,7 @@ public class Database {
                 } else if (dto instanceof Team) {
                     Team teamFound = (Team)searchResult;
                     Team teamDto = (Team)dto;
-                        if(teamDto.getNameTeam() != null && !teamDto.getNameTeam().isEmpty()){
+                        if(teamDto.getNameTeam() != null){
                             System.out.println("se ha modificado el nombre [" + teamDto.getNameTeam()+ "] por el nombre [" + teamFound.getNameTeam()+"]");
                             teamFound.setNameTeam(teamDto.getNameTeam());
                         }
