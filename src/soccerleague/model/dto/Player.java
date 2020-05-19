@@ -2,7 +2,7 @@ package soccerleague.model.dto;
 
 import soccerleague.constants.PlayerPosition;
 
-public final class Player implements Storable {
+public final class Player implements Storable{
 
     public static final String POSITION_GK = "A";
     public static final String POSITION_DF = "B";
@@ -72,7 +72,13 @@ public final class Player implements Storable {
     }
 
     @Override
+    public int hashCode() {
+        return this.name.hashCode() * this.position.hashCode() + this.number;
+    }
+
+    @Override
     public void printClassType() {
         System.out.println(this.getClass().getCanonicalName() + " - From subclass" + " - " + this.toString());
     }
+
 }

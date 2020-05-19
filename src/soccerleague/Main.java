@@ -1,12 +1,15 @@
 package soccerleague;
 
 import soccerleague.constants.PlayerPosition;
+import soccerleague.controller.comparators.PlayersByNameComparator;
+import soccerleague.controller.comparators.PlayersByPositionComparator;
+import soccerleague.controller.comparators.PlayersCompositeComparator;
 import soccerleague.model.Database;
 import soccerleague.model.DatabaseException;
 import soccerleague.model.dto.Player;
 import soccerleague.model.dto.Storable;
 
-import java.util.Arrays;
+import java.util.*;
 
 /**
  * Class used only for test purposes
@@ -30,9 +33,10 @@ public class Main {
 //
 //        assert removeMethodShouldRemoveDto() : "The List of players is not empty.";
 //        assert saveMethodShouldThrowExceptionWhenDuplicateEntry() : "Oooops, saveMethodShouldThrowExceptionWhenDuplicateEntry()";
+        shouldOrderThePlayersByNumber();
 
-        Storable testPlayer = new Player("Juan", PlayerPosition.DF, 10);
-        testPlayer.printClassType();
+//        Storable testPlayer = new Player("Juan", PlayerPosition.DF, 10);
+//        testPlayer.printClassType();
     }
 
     public static boolean testMetodoSaveIsOk(){
@@ -42,7 +46,7 @@ public class Main {
         Player testPlayer2 = new Player("Pedro", PlayerPosition.DF, 15);
 
         try {
-            db.save(testPlayer);
+            db.save(new Player("Juan", PlayerPosition.DF, 10));
             db.save(testPlayer2);
         } catch (DatabaseException e) {
             e.printStackTrace();
@@ -120,5 +124,33 @@ public class Main {
 //        return testPlayer.getPosition().equals(newPosition);
 //
 //    }
+
+    public static void shouldOrderThePlayersByNumber(){
+        Player testPlayer1 = new Player("Nombre", PlayerPosition.DF, 10);
+        Player testPlayer2 = new Player("ZNombre", PlayerPosition.GK, 11);
+        Player testPlayer3 = new Player("HNombre", PlayerPosition.DF, 15);
+        Player testPlayer4 = new Player("LNombre", PlayerPosition.DF, 5);
+        Player testPlayer5 = new Player("QNombre", PlayerPosition.FW, 1);
+
+        List<Player> unsortedPlayers = new ArrayList<>();
+        unsortedPlayers.add(testPlayer1);
+        unsortedPlayers.add(testPlayer2);
+        unsortedPlayers.add(testPlayer3);
+        unsortedPlayers.add(testPlayer4);
+        unsortedPlayers.add(testPlayer5);
+
+        List test = Arrays.asList("A", "B", "C");
+
+        Collections.sort(unsortedPlayers, new PlayersByPositionComparator());
+
+        unsortedPlayers.forEach(p -> System.out.println(p));
+        System.out.println("----------");
+
+        Collections.sort(test, new PlayersCompositeComparator());
+
+        unsortedPlayers.forEach(p -> System.out.println(p));
+
+        return;
+    }
 
 }
