@@ -118,4 +118,5 @@ modules.xml
 build.xml
 nbproject/
 nuevo.txt
+build/
 
