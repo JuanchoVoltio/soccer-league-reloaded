@@ -1,13 +1,15 @@
 package soccerleague;
 
 import soccerleague.constants.PlayerPosition;
-import soccerleague.controller.comparators.PlayersByNameComparator;
+import soccerleague.controller.Controller;
 import soccerleague.controller.comparators.PlayersByPositionComparator;
 import soccerleague.controller.comparators.PlayersCompositeComparator;
+import soccerleague.controller.finders.FinderByAge;
+import soccerleague.controller.finders.FinderByAgeRange;
+import soccerleague.controller.finders.PlayerFinder;
 import soccerleague.model.Database;
 import soccerleague.model.DatabaseException;
 import soccerleague.model.dto.Player;
-import soccerleague.model.dto.Storable;
 
 import java.util.*;
 
@@ -139,18 +141,41 @@ public class Main {
         unsortedPlayers.add(testPlayer4);
         unsortedPlayers.add(testPlayer5);
 
-        List test = Arrays.asList("A", "B", "C");
-
         Collections.sort(unsortedPlayers, new PlayersByPositionComparator());
 
         unsortedPlayers.forEach(p -> System.out.println(p));
         System.out.println("----------");
 
-        Collections.sort(test, new PlayersCompositeComparator());
+        Collections.sort(unsortedPlayers, new PlayersCompositeComparator());
 
         unsortedPlayers.forEach(p -> System.out.println(p));
 
         return;
     }
+
+    /*--- TEST FUNCTIONAL INTERFACES AND LAMBDA EXPRESSIONS  -----*/
+
+    public static void testMethodImplementationInsideAClass(){
+        Controller controller = new Controller();
+
+        int maxSalary = 1000;
+        int minSalary = 500;
+        int desiredAge = 22;
+
+        PlayerFinder finder1 = new FinderByAgeRange(20, 25);
+        PlayerFinder finder2 = new FinderByAge(25);
+        controller.findPlayers(finder1); //1. Usando objetos para inyectar la lógica
+
+        controller.findPlayers(new PlayerFinder(){ //2. Usando una clase anónima para evitar el problema de 1.
+                                        @Override
+                                        public boolean isValid(Player p) {
+                                            return p.getSalary().intValue() <= maxSalary;
+                                        }});
+
+        List<Player> result = controller.findPlayers((Player p) -> (p.getSalary().intValue() >= minSalary) && (p.getAge() == desiredAge)); //3. Simplificar la solución planteada en  2.
+
+        result.forEach(p -> System.out.println(p));
+    }
+
 
 }

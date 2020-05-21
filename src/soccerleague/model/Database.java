@@ -151,4 +151,7 @@ public class Database {
         return this.jugadores.size();
     }
 
+    public List<Player> getAllPlayers() {
+        return this.jugadores;
+    }
 }

@@ -10,6 +10,9 @@ public final class Player implements Storable{
     private String name;
     private PlayerPosition position;
     private Integer number;
+    private Integer age;
+    private Integer phoneNumber;
+    private Integer salary;
 
     public Player(String name){
         this.setName(name);
@@ -25,6 +28,16 @@ public final class Player implements Storable{
         this(name);
         this.position = position;
         this.number = number;
+    }
+
+    public Player(String name, PlayerPosition position, Integer number,
+                    Integer age, Integer phoneNumber, Integer salary){
+        this(name);
+        this.position = position;
+        this.number = number;
+        this.age = age;
+        this.phoneNumber = phoneNumber;
+        this.salary = salary;
     }
 
     public String getName() {
@@ -53,6 +66,30 @@ public final class Player implements Storable{
         this.number = number;
     }
 
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public Integer getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(Integer phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public Integer getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Integer salary) {
+        this.salary = salary;
+    }
+
     @Override
     public String toString(){
         return " Name: " + this.getName() + "(" + this.getNumber() + ") - [" + this.getPosition().getDescription() + "]";
@@ -60,6 +97,8 @@ public final class Player implements Storable{
 
     @Override
     public boolean equals(Object o){
+
+        //TODO: Agregar comparación para los nuevos atributos
 
         boolean answer = false;
         if(o != null) {
@@ -80,5 +119,4 @@ public final class Player implements Storable{
     public void printClassType() {
         System.out.println(this.getClass().getCanonicalName() + " - From subclass" + " - " + this.toString());
     }
-
 }
