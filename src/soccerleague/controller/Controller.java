@@ -32,7 +32,7 @@ public class Controller{
         return result; // Retornar los jugadores que coincidían con el criterio de selección.
     }
     
-	public List<Player> SaveByPosition(PlayerSave savePosition) {
+	public List<Player> saveByPosition(PlayerSave savePosition) {
 		
 		List<Player> result = new ArrayList<>();
 						
