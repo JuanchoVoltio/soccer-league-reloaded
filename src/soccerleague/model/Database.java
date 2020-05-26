@@ -9,9 +9,9 @@ import java.util.*;
 
 public class Database {
     //Arreglo para almacenar jugadores
-    private List<Player> jugadores;
+    private TreeSet<Player> jugadores;
     //Arreglo para almacenar Equipos
-    private List<Team> equipos;
+    private TreeSet<Team> equipos;
 
     public Database(){
         this.init();
@@ -19,8 +19,8 @@ public class Database {
 
 
     public void init(){
-        this.jugadores = new ArrayList<>();
-        this.equipos = new ArrayList<>();
+        this.jugadores = new TreeSet<Player>();
+        this.equipos = new TreeSet<Team>();
     }
 
     /**
@@ -72,7 +72,7 @@ public class Database {
                 if (dto instanceof Player) {
                     Player playerFound = (Player) searchResult;
                     Player playerDto = (Player) dto;
-                     if(playerDto.getPosition() != null && !playerDto.getPosition().isEmpty()){
+                     if(playerDto.getPosition() != null){
                          System.out.println("se ha modificado la posición [" + playerDto.getPosition()+ "] por la posición [" + playerFound.getPosition()+"]");
                          playerFound.setPosition(playerDto.getPosition());
                      }
@@ -83,7 +83,7 @@ public class Database {
                 } else if (dto instanceof Team) {
                     Team teamFound = (Team)searchResult;
                     Team teamDto = (Team)dto;
-                        if(teamDto.getNameTeam() != null && !teamDto.getNameTeam().isEmpty()){
+                        if(teamDto.getNameTeam() != null){
                             System.out.println("se ha modificado el nombre [" + teamDto.getNameTeam()+ "] por el nombre [" + teamFound.getNameTeam()+"]");
                             teamFound.setNameTeam(teamDto.getNameTeam());
                         }
@@ -96,19 +96,17 @@ public class Database {
     public Storable find (Storable e){
 
         Storable result = null;
-        int index = -1;
+        
 
         if (e instanceof Player){
             Player p = (Player)e;
-            index = this.jugadores.indexOf(p);
-            if(index >= 0){
-                result = this.jugadores.get(index);
+            if(this.jugadores.contains(p)){
+                result = this.jugadores.first();
             }
         }else if(e instanceof Team){
             Team t = (Team)e;
-            index = this.equipos.indexOf(t);
-            if(index >= 0){
-                result = this.equipos.get(index);
+            if(this.equipos.contains(t)){
+                result = this.equipos.first();
             }
         }
 
@@ -127,7 +125,7 @@ public class Database {
                 if (((Player) dto).getName().equals(null)){
                     // lanzar exception
                 }else if (nameId.equalsIgnoreCase(((Player) dto).getName())) {  //convierte el tipo de dato de storable a objeto y trae el atributo con el get
-                    this.jugadores.indexOf(current);
+                    this.jugadores.contains(current);
                     result = current;
                 }
             }
@@ -138,7 +136,7 @@ public class Database {
                 if (teamDto.getCodeTeam() != null || ((Team) dto).getCodeTeam() < 0 ){
                     // lanzar exception
                 }else if (code == teamDto.getCodeTeam()) {
-                    this.equipos.indexOf(current);
+                    this.equipos.contains(current);
                     result = current;
                 }
             }
@@ -151,4 +149,7 @@ public class Database {
         return this.jugadores.size();
     }
 
+    public TreeSet<Player> getAllPlayers() {
+        return this.jugadores;
+    }
 }
