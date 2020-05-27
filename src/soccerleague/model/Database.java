@@ -9,9 +9,9 @@ import java.util.*;
 
 public class Database {
     //Arreglo para almacenar jugadores
-    private TreeSet<Player> jugadores;
+    private Set<Player> jugadores;
     //Arreglo para almacenar Equipos
-    private TreeSet<Team> equipos;
+    private Set<Team> equipos;
 
     public Database(){
         this.init();
@@ -29,14 +29,16 @@ public class Database {
      */
     public void save(Storable dto) throws DatabaseException{
         if(dto instanceof Player){
-            if(findById((Player) dto) == null) {
-                this.jugadores.add((Player) dto);
+        	Player p = (Player) dto;
+            if(findById(p) == null) {
+                this.jugadores.add(p);
             }else{
                 throw new DatabaseException(DatabaseException.ITEM_ALREADY_EXISTS, "The player has been added to database");
             }
         }else if(dto instanceof Team){
-            if(findById((Team) dto) == null) {
-                this.equipos.add((Team) dto);;
+        	Team t = (Team) dto;
+            if(findById(t) == null) {
+                this.equipos.add(t);;
             }else{
                 throw new DatabaseException(DatabaseException.ITEM_ALREADY_EXISTS, "The team has been added to database");
             }
@@ -101,12 +103,12 @@ public class Database {
         if (e instanceof Player){
             Player p = (Player)e;
             if(this.jugadores.contains(p)){
-                result = this.jugadores.first();
+                result = ((TreeSet<Player>) this.jugadores).first();
             }
         }else if(e instanceof Team){
             Team t = (Team)e;
             if(this.equipos.contains(t)){
-                result = this.equipos.first();
+                result = ((TreeSet<Team>) this.equipos).first();
             }
         }
 
@@ -120,22 +122,23 @@ public class Database {
         Integer code = -1;
 
         if (dto instanceof Player) {
+        	Player p = (Player) dto;
             for (Player current : jugadores) {
                 nameId = current.getName();
-                if (((Player) dto).getName().equals(null)){
+                if ((p).getName().equals(null)){
                     // lanzar exception
-                }else if (nameId.equalsIgnoreCase(((Player) dto).getName())) {  //convierte el tipo de dato de storable a objeto y trae el atributo con el get
+                }else if (nameId.equalsIgnoreCase((p).getName())) {  //convierte el tipo de dato de storable a objeto y trae el atributo con el get
                     this.jugadores.contains(current);
                     result = current;
                 }
             }
         }else if(dto instanceof Team){
-            Team teamDto = (Team) dto;
+            Team t = (Team) dto;
             for (Team current : equipos) {
                 code = current.getCodeTeam();
-                if (teamDto.getCodeTeam() != null || ((Team) dto).getCodeTeam() < 0 ){
+                if (t.getCodeTeam() != null || ((Team) dto).getCodeTeam() < 0 ){
                     // lanzar exception
-                }else if (code == teamDto.getCodeTeam()) {
+                }else if (code == t.getCodeTeam()) {
                     this.equipos.contains(current);
                     result = current;
                 }
@@ -149,7 +152,7 @@ public class Database {
         return this.jugadores.size();
     }
 
-    public TreeSet<Player> getAllPlayers() {
+    public Set<Player> getAllPlayers() {
         return this.jugadores;
     }
 }

@@ -102,9 +102,12 @@ public final class Player implements Storable, Comparable<Player>{
         boolean answer = false;
         if(o != null) {
             Player obj = (Player) o;
-            answer = (obj.name == this.name || obj.name.equals(this.name))
-                    && (obj.number == this.number || obj.number.intValue() == this.number.intValue())
-                    && (obj.position.equals(this.position));
+            answer = (obj.name.equals(this.name))
+                    && (obj.number.intValue() == this.number.intValue())
+                    && (obj.position.equals(this.position))
+                    && (obj.age.intValue() == this.age.intValue())
+                    && (obj.phoneNumber.intValue() == this.phoneNumber.intValue())
+                    && (obj.salary.intValue() == this.salary.intValue());
         }
         return answer;
     }
@@ -121,6 +124,8 @@ public final class Player implements Storable, Comparable<Player>{
 
 	@Override
 	public int compareTo(Player dto) {
+		
+		
 		
 		return 0;
 	}

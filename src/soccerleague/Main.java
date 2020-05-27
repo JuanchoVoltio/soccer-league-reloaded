@@ -206,7 +206,7 @@ public class Main {
 
         result1.forEach(p -> System.out.println(p));
         
-        List<Player> result = controller.SaveByPosition((Player p) -> (p.getPosition() == PlayerPosition.DF));
+        List<Player> result = controller.saveByPosition((Player p) -> (p.getPosition() == PlayerPosition.DF));
         result.forEach(p -> System.out.println(p));
     }
 

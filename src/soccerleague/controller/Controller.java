@@ -8,6 +8,7 @@ import soccerleague.model.dto.Storable;
 import soccerleague.model.dto.Team;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Controller{
@@ -32,17 +33,19 @@ public class Controller{
         return result; // Retornar los jugadores que coincidían con el criterio de selección.
     }
     
-	public List<Player> SaveByPosition(PlayerSave savePosition) {
+	public List<Player> saveByPosition(Collections playerToAdd, PlayerSave savePosition) {
 		
 		List<Player> result = new ArrayList<>();
 						
-		for(Player current : db.getAllPlayers()) {
+		for(Player current : playerToAdd()) {
 			if(savePosition.isValid(current)) {
 				result.add(current);								
 			}
 		}
-
-	return result;
+		
+		db.saveAll(result);
+		
+		throw new UnsupportedOperationException();
 	
 	}
 	
