@@ -2,6 +2,8 @@ package soccerleague.model.dto;
 
 import soccerleague.constants.PlayerPosition;
 
+import java.util.Comparator;
+
 public final class Player implements Storable{
 
     public static final String POSITION_GK = "A";
@@ -119,4 +121,5 @@ public final class Player implements Storable{
     public void printClassType() {
         System.out.println(this.getClass().getCanonicalName() + " - From subclass" + " - " + this.toString());
     }
+
 }

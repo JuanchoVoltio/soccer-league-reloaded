@@ -12,6 +12,7 @@ import soccerleague.model.DatabaseException;
 import soccerleague.model.dto.Player;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 /**
  * Class used only for test purposes
@@ -164,17 +165,62 @@ public class Main {
 
         PlayerFinder finder1 = new FinderByAgeRange(20, 25);
         PlayerFinder finder2 = new FinderByAge(25);
-        controller.findPlayers(finder1); //1. Usando objetos para inyectar la lógica
+        //controller.findPlayers(finder1); //1. Usando objetos para inyectar la lógica
 
-        controller.findPlayers(new PlayerFinder(){ //2. Usando una clase anónima para evitar el problema de 1.
-                                        @Override
-                                        public boolean isValid(Player p) {
-                                            return p.getSalary().intValue() <= maxSalary;
-                                        }});
+//        controller.findPlayers(new PlayerFinder(){ //2. Usando una clase anónima para evitar el problema de 1.
+//                                        @Override
+//                                        public boolean isValid(Player p) {
+//                                            return p.getSalary().intValue() <= maxSalary;
+//                                        }});
 
         List<Player> result = controller.findPlayers((Player p) -> (p.getSalary().intValue() >= minSalary) && (p.getAge() == desiredAge)); //3. Simplificar la solución planteada en  2.
 
+        List<Player> result2 = controller.findPlayers((Player p) -> { int tmpAge = p.getAge() - 2;
+                                                                      return (tmpAge <= desiredAge);}); //3. Simplificar la solución planteada en  2.
+
+        List<Player> result3 = controller.findPlayersUsingPredicate((Player p) -> { int tmpAge = p.getAge() - 2;
+                                                                      return (tmpAge <= desiredAge);}); //4. Usar una interfaz funcional nativa de Java para no crear una nueva, tal cual pasó en 3.
+
+
         result.forEach(p -> System.out.println(p));
+    }
+
+    public static void testFiltersAndStreams(){
+        Controller controller = new Controller();
+        int maxSalary = 1000;
+        int minSalary = 500;
+        int desiredAge = 22;
+
+        Predicate<Player> predicate = (Player p) -> p.getSalary() < maxSalary ;
+
+        controller.toUpperCasePlayerNames(predicate);
+
+    }
+
+    public static void shouldOrderThePlayersByNumber2(){
+        Player testPlayer1 = new Player("Nombre", PlayerPosition.DF, 10);
+        Player testPlayer2 = new Player("ZNombre", PlayerPosition.GK, 11);
+        Player testPlayer3 = new Player("HNombre", PlayerPosition.DF, 15);
+        Player testPlayer4 = new Player("LNombre", PlayerPosition.DF, 5);
+        Player testPlayer5 = new Player("QNombre", PlayerPosition.FW, 1);
+
+        List<Player> unsortedPlayers = new ArrayList<>();
+        unsortedPlayers.add(testPlayer1);
+        unsortedPlayers.add(testPlayer2);
+        unsortedPlayers.add(testPlayer3);
+        unsortedPlayers.add(testPlayer4);
+        unsortedPlayers.add(testPlayer5);
+
+        Collections.sort(unsortedPlayers, (Player p1, Player p2) -> p1.getAge().compareTo(p2.getAge()));
+
+        unsortedPlayers.forEach(p -> System.out.println(p));
+        System.out.println("----------");
+
+        Collections.sort(unsortedPlayers, new PlayersCompositeComparator());
+
+        unsortedPlayers.forEach(p -> System.out.println(p));
+
+        return;
     }
 
 

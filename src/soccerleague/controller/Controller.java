@@ -8,10 +8,11 @@ import soccerleague.model.dto.Team;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class Controller{
 
-    Database db = new Database();
+    private Database db = new Database();
 
     public boolean validateStorable(Storable subjectToValidate){
        //Use generics here.
@@ -30,5 +31,22 @@ public class Controller{
 
         return result; // Retornar los jugadores que coincidían con el criterio de selección.
     }
+
+    public List<Player> findPlayersUsingPredicate(Predicate<Player> criteria){
+        List<Player> result = new ArrayList<>();
+
+        for(Player current : db.getAllPlayers()){ //Obtener todos los jugadores de la base de datos
+            if(criteria.test(current)){ //Aplicar criterio de selección establecido en el lambda
+                result.add(current);
+            }
+        }
+
+        return result; // Retornar los jugadores que coincidían con el criterio de selección.
+    }
+
+    public void toUpperCasePlayerNames(Predicate<Player> p){
+        db.getAllPlayers().stream().filter(p).forEach( pl -> System.out.println(pl.getName().toUpperCase()));
+    }
+
 
 }
