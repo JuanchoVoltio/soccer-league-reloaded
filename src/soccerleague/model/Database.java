@@ -8,25 +8,32 @@ import soccerleague.model.dto.Team;
 import java.util.*;
 
 public class Database {
-    //Arreglo para almacenar jugadores
     private List<Player> jugadores;
-    //Arreglo para almacenar Equipos
     private List<Team> equipos;
-
+    
+// Constructor-------------------------------------------------------------
     public Database(){
         this.init();
     }
-
 
     public void init(){
         this.jugadores = new ArrayList<>();
         this.equipos = new ArrayList<>();
     }
+    
+// Gets and Set -----------------------------------------------------------
 
-    /**
-     *
-     * @param dto Data Transfer Object
-     */
+    public List<Player> getJugadores(){
+        return jugadores;
+    }
+    
+    public void setJugadores(List<Player> jugadores){
+        
+        this.jugadores = jugadores;
+    }
+    
+ // save, saveall, remove, removeall, update, find, findById-------------------
+    
     public void save(Storable dto) throws DatabaseException{
         if(dto instanceof Player){
             if(findById((Player) dto) == null) {
@@ -42,13 +49,13 @@ public class Database {
             }
         }
     }
-
+    
     public void saveAll(List<Storable> e) throws DatabaseException {
         for(Storable current : e){
             save(current);
         }
     }
-
+    
     public void remove(Storable dto){
         if(dto != null) {
             if (dto instanceof Player) {
@@ -58,13 +65,13 @@ public class Database {
             }
         }
     }
-
+    
     public void removeAll(List<Storable> e){
         for(Storable current : e){
             remove(current);
         }
     }
-
+    
     public void update(Storable dto){
         if(dto != null) {
             Storable searchResult = findById (dto);
@@ -72,18 +79,18 @@ public class Database {
                 if (dto instanceof Player) {
                     Player playerFound = (Player) searchResult;
                     Player playerDto = (Player) dto;
-                     if(playerDto.getPosition() != null && !playerDto.getPosition().isEmpty()){
-                         System.out.println("se ha modificado la posición [" + playerDto.getPosition()+ "] por la posición [" + playerFound.getPosition()+"]");
+                     if(playerDto.getPosition() != null){
+                         System.out.println("se ha modificado la posiciï¿½n [" + playerDto.getPosition()+ "] por la posiciï¿½n [" + playerFound.getPosition()+"]");
                          playerFound.setPosition(playerDto.getPosition());
                      }
                      if(playerDto.getNumber() != null){
-                         System.out.println("se ha modificado el número [" + playerDto.getNumber()+ "] por el número [" + playerFound.getNumber()+"]");
+                         System.out.println("se ha modificado el nï¿½mero [" + playerDto.getNumber()+ "] por el nï¿½mero [" + playerFound.getNumber()+"]");
                          playerFound.setNumber(playerDto.getNumber());
                      }
                 } else if (dto instanceof Team) {
                     Team teamFound = (Team)searchResult;
                     Team teamDto = (Team)dto;
-                        if(teamDto.getNameTeam() != null && !teamDto.getNameTeam().isEmpty()){
+                        if(teamDto.getNameTeam() != null){
                             System.out.println("se ha modificado el nombre [" + teamDto.getNameTeam()+ "] por el nombre [" + teamFound.getNameTeam()+"]");
                             teamFound.setNameTeam(teamDto.getNameTeam());
                         }
@@ -92,8 +99,8 @@ public class Database {
             }
         }
     }
-
-    public Storable find (Storable e){
+    
+     public Storable find (Storable e){
 
         Storable result = null;
         int index = -1;
@@ -114,7 +121,7 @@ public class Database {
 
         return result;
     }
-
+     
     public Storable findById (Storable dto) {
 
         Storable result = null;
@@ -122,11 +129,12 @@ public class Database {
         Integer code = -1;
 
         if (dto instanceof Player) {
+            Player playerIn = (Player)dto;
             for (Player current : jugadores) {
                 nameId = current.getName();
-                if (((Player) dto).getName().equals(null)){
+                if (playerIn.getName().equals(null)){
                     // lanzar exception
-                }else if (nameId.equalsIgnoreCase(((Player) dto).getName())) {  //convierte el tipo de dato de storable a objeto y trae el atributo con el get
+                }else if (nameId.equalsIgnoreCase(playerIn.getName())) {  //convierte el tipo de dato de storable a objeto y trae el atributo con el get
                     this.jugadores.indexOf(current);
                     result = current;
                 }
@@ -135,7 +143,7 @@ public class Database {
             Team teamDto = (Team) dto;
             for (Team current : equipos) {
                 code = current.getCodeTeam();
-                if (teamDto.getCodeTeam() != null || ((Team) dto).getCodeTeam() < 0 ){
+                if (teamDto.getCodeTeam() != null || (teamDto.getCodeTeam() < 0 )){
                     // lanzar exception
                 }else if (code == teamDto.getCodeTeam()) {
                     this.equipos.indexOf(current);
@@ -145,10 +153,6 @@ public class Database {
         }
 
         return result;
-    }
-
-    public int playersListSize(){
-        return this.jugadores.size();
     }
 
 }

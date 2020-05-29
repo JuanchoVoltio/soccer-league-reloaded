@@ -4,7 +4,7 @@ import soccerleague.controller.Controller;
 import soccerleague.model.dto.Player;
 
 public class View {
-
+/*
     Controller controller = new Controller();
 
     public static final String ACTION_FIND_PLAYER = "findPlayer";
@@ -25,5 +25,5 @@ public class View {
 
         return textBlock;
     }
-
+*/
 }
