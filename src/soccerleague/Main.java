@@ -10,7 +10,8 @@ import soccerleague.controller.finders.PlayerFinder;
 import soccerleague.model.Database;
 import soccerleague.model.DatabaseException;
 import soccerleague.model.dto.Player;
-import soccerleague.controller.keeping.PlayerSave;
+import soccerleague.model.dto.Storable;
+
 
 import java.util.*;
 
@@ -19,15 +20,15 @@ import java.util.*;
  */
 public class Main {
 
-    public static void main(String... args) {
+    public static void main(String... args) throws DatabaseException {
     	  
-        if(testMetodoSaveIsOk()){
-            System.out.println("Pass");
-        }else{
-            System.out.println("Ooops!!");
-        }
+//        if(testMetodoSaveIsOk()){
+//            System.out.println("Pass");
+//        }else{
+//            System.out.println("Ooops!!");
+//        }
         
-        testMethodImplementationInsideAClass();
+        objToAdd();
     }
 
 //
@@ -142,7 +143,9 @@ public class Main {
     public static boolean updateMethodShouldReturnOk(){
         Database db = new Database();
         
-        Player testPlayer = new Player("Juan", PlayerPosition.DF, 23);
+        PlayerPosition posicionInicial = PlayerPosition.DF;
+        
+        Player testPlayer = new Player("Juan", posicionInicial, 23);
         Player updatedTestPlayer = new Player("Juan", PlayerPosition.FW, 30);
 
         try {
@@ -205,9 +208,23 @@ public class Main {
         List<Player> result1 = controller.findPlayers((Player p) -> (p.getSalary().intValue() >= minSalary) && (p.getAge() == desiredAge)); //3. Simplificar la solución planteada en  2.
 
         result1.forEach(p -> System.out.println(p));
+        }
+    
+        public static void objToAdd() throws DatabaseException{
+        	
+        	Controller controller = new Controller();
+        	
+        	List<Storable> listTest = new ArrayList<>();
+        	
+            Player testPlayer1 = new Player("Nombre", PlayerPosition.DF, 10);
+            Player testPlayer2 = new Player("ZNombre", PlayerPosition.GK, 11);
+            Player testPlayer3 = new Player("HNombre", PlayerPosition.DF, 15);
+            Player testPlayer4 = new Player("LNombre", PlayerPosition.DF, 5);
+            Player testPlayer5 = new Player("QNombre", PlayerPosition.FW, 1);
         
-        List<Player> result = controller.saveByPosition((Player p) -> (p.getPosition() == PlayerPosition.DF));
-        result.forEach(p -> System.out.println(p));
+
+            List<Storable> resultObjToAdd = controller.saveWithFilter(listTest, (Storable p) -> (((Player) p).getSalary().intValue() >= ((Player) p).getSalary().intValue()));
+            resultObjToAdd.forEach(p -> System.out.println(p));
     }
 
 

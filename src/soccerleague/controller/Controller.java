@@ -1,19 +1,21 @@
 package soccerleague.controller;
 
 import soccerleague.controller.finders.PlayerFinder;
-import soccerleague.controller.keeping.PlayerSave;
 import soccerleague.model.Database;
+import soccerleague.model.DatabaseException;
 import soccerleague.model.dto.Player;
 import soccerleague.model.dto.Storable;
 import soccerleague.model.dto.Team;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Predicate;
+
 
 public class Controller{
 
-    Database db = new Database();
+    
+	Database db = new Database();
 
     public boolean validateStorable(Storable subjectToValidate){
        //Use generics here.
@@ -24,8 +26,8 @@ public class Controller{
     public List<Player> findPlayers(PlayerFinder finder){
         List<Player> result = new ArrayList<>();
 
-        for(Player current : db.getAllPlayers()){ //Obtener todos los jugadores de la base de datos
-            if(finder.isValid(current)){ //Aplicar criterio de selección establecido en el lambda
+        for(Player current : db.getAllPlayers()){ // Obtener todos los jugadores de la base de datos
+            if(finder.isValid(current)){  // Aplicar criterio de selección establecido en el lambda
                 result.add(current);
             }
         }
@@ -33,20 +35,38 @@ public class Controller{
         return result; // Retornar los jugadores que coincidían con el criterio de selección.
     }
     
-	public List<Player> saveByPosition(Collections playerToAdd, PlayerSave savePosition) {
+	public List<Storable> saveWithFilter (List <Storable> objToAdd, Predicate<Storable> filterToAdd)throws DatabaseException {
 		
-		List<Player> result = new ArrayList<>();
+		List<Storable> resultObjToAdd = new ArrayList<>();
 						
-		for(Player current : playerToAdd()) {
-			if(savePosition.isValid(current)) {
-				result.add(current);								
+			for(Storable current : objToAdd ) {
+				if(filterToAdd.test(current)) {
+					resultObjToAdd.add(current);								
+				}
 			}
-		}
 		
-		db.saveAll(result);
+			db.saveAll(resultObjToAdd);
 		
 		throw new UnsupportedOperationException();
 	
 	}
+
+	public List<Storable> removeWithFilter (List <Storable> objToAdd, Predicate<Storable> filterToAdd){
+		
+		List<Storable> resultObjToRemove = new ArrayList<>();
+						
+			for(Storable current : objToAdd ) {
+				if(filterToAdd.test(current)) {
+					resultObjToRemove.remove(current);								
+				}
+			}
+		
+
+			db.removeAll(resultObjToRemove);
+		
+		throw new UnsupportedOperationException();
 	
+	}
 }
+
+	
