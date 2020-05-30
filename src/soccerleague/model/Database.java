@@ -8,26 +8,21 @@ import soccerleague.model.dto.Team;
 import java.util.*;
 
 public class Database {
-    //Arreglo para almacenar jugadores
+    //Lista para almacenar jugadores
     private List<Player> jugadores;
-    //Arreglo para almacenar Equipos
+    //Lista para almacenar Equipos
     private List<Team> equipos;
 
     public Database(){
         this.init();
     }
 
-
     public void init(){
         this.jugadores = new ArrayList<>();
         this.equipos = new ArrayList<>();
     }
-
-    /**
-     *
-     * @param dto Data Transfer Object
-     */
-    public void save(Storable dto) throws DatabaseException{
+    
+    public void save(Storable dto) throws DatabaseException{ //Usa el Storable para almacenar el tipo de objeto
         if(dto instanceof Player){
             if(findById((Player) dto) == null) {
                 this.jugadores.add((Player) dto);
@@ -36,7 +31,7 @@ public class Database {
             }
         }else if(dto instanceof Team){
             if(findById((Team) dto) == null) {
-                this.equipos.add((Team) dto);;
+                this.equipos.add((Team) dto);
             }else{
                 throw new DatabaseException(DatabaseException.ITEM_ALREADY_EXISTS, "The team has been added to database");
             }
@@ -66,20 +61,29 @@ public class Database {
     }
 
     public void update(Storable dto){
-        //TODO: Validar que el dto no sea null.
-        Storable searchResult = findById (dto);
-        if(searchResult != null) {
-            if (dto instanceof Player) {
-                Player playerFound = (Player) searchResult;
-                Player playerDto = (Player) dto;
-                if(playerDto.getPosition() != null && !playerDto.getPosition().isEmpty()){
-                    playerFound.setPosition(playerDto.getPosition());
+        if(dto != null) {
+            Storable searchResult = findById (dto);
+            if(searchResult != null) {
+                if (dto instanceof Player) {
+                    Player playerFound = (Player) searchResult;
+                    Player playerDto = (Player) dto;
+                     if(playerDto.getPosition() != null){
+                         System.out.println("se ha modificado la posición [" + playerDto.getPosition()+ "] por la posición [" + playerFound.getPosition()+"]");
+                         playerFound.setPosition(playerDto.getPosition());
+                     }
+                     if(playerDto.getNumber() != null){
+                         System.out.println("se ha modificado el número [" + playerDto.getNumber()+ "] por el número [" + playerFound.getNumber()+"]");
+                         playerFound.setNumber(playerDto.getNumber());
+                     }
+                } else if (dto instanceof Team) {
+                    Team teamFound = (Team)searchResult;
+                    Team teamDto = (Team)dto;
+                        if(teamDto.getNameTeam() != null){
+                            System.out.println("se ha modificado el nombre [" + teamDto.getNameTeam()+ "] por el nombre [" + teamFound.getNameTeam()+"]");
+                            teamFound.setNameTeam(teamDto.getNameTeam());
+                        }
+
                 }
-                if(playerDto.getNumber() != null){
-                    playerFound.setNumber(playerDto.getNumber());
-                }
-            } else if (dto instanceof Team) {
-                this.equipos.set(1, (Team) dto);
             }
         }
     }
@@ -142,4 +146,15 @@ public class Database {
         return this.jugadores.size();
     }
 
+    public List<Player> getAllPlayers() {
+        return this.jugadores;
+    }
+    
+    public int teamListSize(){
+        return this.equipos.size();
+    }
+
+    public List<Team> getAllTeams() {
+        return this.equipos;
+    }
 }
