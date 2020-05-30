@@ -41,7 +41,8 @@ public class Main {
 			db.getAllPlayers().forEach(p -> System.out.println("Nombre ("  + p.getName() + ") -  Edad (" + p.getAge() + ")"));
 			System.out.println("----------------------------------------------");
 			/**  */
-			Controller c = new Controller();
+			Controller c = new Controller(db);
+
 			
 			Predicate<Player>  allvotingPlayer = p -> p.getAge() >= 21;
 			
@@ -54,7 +55,7 @@ public class Main {
 			}
 			
 			c.removeByCriterion(lst, allvotingPlayer);
-			db.getAllPlayers().forEach(p -> System.out.println("Nombre ("  + p.getName() + ") -  Edad (" + p.getAge() + ")"));
+			c.getDb().getAllPlayers().forEach(p -> System.out.println("Nombre ("  + p.getName() + ") -  Edad (" + p.getAge() + ")"));
 			
 		} catch (DatabaseException e) {
 			e.printStackTrace();

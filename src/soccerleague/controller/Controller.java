@@ -12,7 +12,15 @@ import java.util.function.Predicate;
 
 public class Controller{
 
-	Database db = new Database();
+	private Database db = new Database();
+
+	public Controller(){
+
+	}
+
+	public Controller(Database db){
+		this.db = db;
+	}
 
 	public boolean validateStorable(Storable subjectToValidate){
 		//Use generics here.
@@ -44,4 +52,6 @@ public class Controller{
 			
 		}
 	}
+
+	public Database getDb(){ return this.db;}
 }
