@@ -1,7 +1,6 @@
 package soccerleague.view;
 
-import soccerleague.controller.Controller;
-import soccerleague.model.dto.Player;
+
 
 public class View {
 

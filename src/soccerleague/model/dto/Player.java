@@ -23,14 +23,13 @@ public final class Player implements Storable, Comparable<Player>{
 //        this.number = number;
 //    }
 
-    public Player(String name, PlayerPosition position, Integer number){
-        this(name);
-        this.position = position;
-        this.number = number;
-    }
+//    public Player(String name, PlayerPosition position, Integer number){
+//        this(name);
+//        this.position = position;
+//        this.number = number;
+//    }
 
-    public Player(String name, PlayerPosition position, Integer number,
-                    Integer age, Integer phoneNumber, Integer salary){
+    public Player(String name, PlayerPosition position, Integer number, Integer age, Integer salary){
         this(name);
         this.position = position;
         this.number = number;
@@ -91,7 +90,8 @@ public final class Player implements Storable, Comparable<Player>{
 
     @Override
     public String toString(){
-        return " Name: " + this.getName() + "(" + this.getNumber() + ") - [" + this.getPosition().getDescription() + "]";
+        return " Name: " + this.getName() + " Number: (" + this.getNumber() + ")  Position: [" + this.getPosition().getDescription() + "] "
+                + "Edad: " + this.getAge() + " Salary: "+ this.getSalary();
     }
 
     @Override
@@ -114,7 +114,7 @@ public final class Player implements Storable, Comparable<Player>{
 
     @Override
     public int hashCode() {
-        return this.name.hashCode() * this.position.hashCode() + this.number;
+        return this.name.hashCode() * this.position.hashCode() + this.number + this.age + this.salary;
     }
 
     @Override

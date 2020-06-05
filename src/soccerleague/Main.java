@@ -14,24 +14,88 @@ import soccerleague.model.dto.Storable;
 
 
 import java.util.*;
+import java.util.function.Predicate;
 
 /**
  * Class used only for test purposes
  */
 public class Main {
 
-    public static void main(String... args) throws DatabaseException {
-    	  
-//        if(testMetodoSaveIsOk()){
-//            System.out.println("Pass");
-//        }else{
-//            System.out.println("Ooops!!");
-//        }
-        
-        objToAdd();
-    }
+    public static void main(String... args) {
 
-//
+
+        Controller controller = new Controller();
+
+        Player testPlayer1 = new Player("Buffon", PlayerPosition.GK, 1, 22, 310000);
+        Player testPlayer2 = new Player("Thiago Silva", PlayerPosition.DF, 3, 22, 320000);
+        Player testPlayer3 = new Player("J. Cuadrado", PlayerPosition.DF, 4, 22, 330000);
+        Player testPlayer4 = new Player("Hummels", PlayerPosition.DF, 2, 22, 130000);
+        Player testPlayer5 = new Player("Marcelo", PlayerPosition.DF, 5, 22, 530000);
+        Player testPlayer6 = new Player("Tony Kross", PlayerPosition.MD, 8, 22, 830000);
+        Player testPlayer7 = new Player("Messi", PlayerPosition.MD, 10, 22, 630000);
+        Player testPlayer8 = new Player("Kantè", PlayerPosition.MD, 6, 22, 730000);
+        Player testPlayer9 = new Player("Ronaldo", PlayerPosition.MD, 7, 22, 300070);
+        Player testPlayer10 = new Player("R. Lewandowski", PlayerPosition.FW, 9, 22, 370000);
+        Player testPlayer11 = new Player("Griezmann", PlayerPosition.FW, 11, 22, 300600);
+
+        Player testPlayer01 = new Player("Buffon", PlayerPosition.GK, 1, 22, 310000);
+        Player testPlayer02 = new Player("Thiago Silva", PlayerPosition.DF, 3, 22, 320000);
+        Player testPlayer03 = new Player("J. Cuadrado", PlayerPosition.DF, 4, 22, 330000);
+        Player testPlayer04 = new Player("Hummels", PlayerPosition.DF, 2, 22, 130000);
+        Player testPlayer05 = new Player("Marcelo", PlayerPosition.FW, 5, 22, 530000);
+        Player testPlayer06 = new Player("Tony Kross", PlayerPosition.MD, 8, 22, 830000);
+        Player testPlayer07 = new Player("Messi", PlayerPosition.MD, 10, 22, 630000);
+        Player testPlayer08 = new Player("Kantè", PlayerPosition.MD, 6, 22, 730000);
+        Player testPlayer09 = new Player("Ronaldo", PlayerPosition.MD, 7, 22, 300070);
+        Player testPlayer010 = new Player("R. Lewandowski", PlayerPosition.FW, 9, 22, 370000);
+        Player testPlayer011 = new Player("Griezmann", PlayerPosition.FW, 11, 22, 300600);
+
+        List<Player> players = new ArrayList<>();
+
+        players.add(testPlayer1);
+        players.add(testPlayer2);
+        players.add(testPlayer3);
+        players.add(testPlayer4);
+        players.add(testPlayer5);
+        players.add(testPlayer6);
+        players.add(testPlayer7);
+        players.add(testPlayer8);
+        players.add(testPlayer9);
+        players.add(testPlayer10);
+        players.add(testPlayer11);
+
+        List<Player> players1 = new ArrayList<>();
+
+        players1.add(testPlayer01);
+        players1.add(testPlayer02);
+        players1.add(testPlayer03);
+        players1.add(testPlayer04);
+        players1.add(testPlayer05);
+        players1.add(testPlayer06);
+        players1.add(testPlayer07);
+        players1.add(testPlayer08);
+        players1.add(testPlayer09);
+        players1.add(testPlayer010);
+        players1.add(testPlayer011);
+
+
+        Predicate <Player> predicategk = p -> p.getPosition().getCode().intValue() == 2;
+        Predicate <Player> predicatedf = p -> p.getPosition().getCode().intValue() == 1;
+        Predicate <Player> predicatemd = p -> p.getPosition().getCode().intValue() == 3;
+        Predicate <Player> predicatefw = p -> p.getPosition().getCode().intValue() == 4;
+
+        controller.validateTeam(players,p -> p.getPosition().getCode().intValue() == 2 || p.getPosition().getCode().intValue() == 1
+                || p.getPosition().getCode().intValue() == 3 || p.getPosition().getCode().intValue() == 4);
+
+
+
+//        controller.validateTeam(players, p -> p.getPosition().getCode().intValue() == 1);
+//        controller.validateTeam(players, p -> p.getPosition().getCode().intValue() == 3);
+//        controller.validateTeam(players, p -> p.getPosition().getCode().intValue() == 4);
+
+
+
+    }
 //        Player p = new Player("Nombre", PlayerPosition.DF, 10);
 //        Player p2 = new Player("Nombre", PlayerPosition.FW, 10);
 //
@@ -42,24 +106,24 @@ public class Main {
 //
 //        assert removeMethodShouldRemoveDto() : "The List of players is not empty.";
 //        assert saveMethodShouldThrowExceptionWhenDuplicateEntry() : "Oooops, saveMethodShouldThrowExceptionWhenDuplicateEntry()";
-       
-
+//       
+//
 //        Storable testPlayer = new Player("Juan", PlayerPosition.DF, 10);
 //        testPlayer.printClassType();
-
+//
 //   }
 
     public static boolean testMetodoSaveIsOk(){
         Database db = new Database();
 
                 
-        Player testPlayer = new Player("Juan", PlayerPosition.DF, 10);
-        Player testPlayer1 = new Player("Pedro", PlayerPosition.DF, 15);
-        Player testPlayer2 = new Player("Nombre", PlayerPosition.FW, 10);
-        Player testPlayer3 = new Player("ZNombre", PlayerPosition.GK, 11);
-        Player testPlayer4 = new Player("HNombre", PlayerPosition.MD, 15);
-        Player testPlayer5 = new Player("LNombre", PlayerPosition.DF, 5);
-        Player testPlayer6 = new Player("QNombre", PlayerPosition.FW, 1);
+        Player testPlayer = new Player("Juan", PlayerPosition.DF, 10,20,200);
+        Player testPlayer1 = new Player("Pedro", PlayerPosition.DF, 15,22,300);
+        Player testPlayer2 = new Player("Nombre", PlayerPosition.FW, 10,21,65000);
+        Player testPlayer3 = new Player("ZNombre", PlayerPosition.GK, 11,28,74000);
+        Player testPlayer4 = new Player("HNombre", PlayerPosition.MD, 15,27,47000);
+        Player testPlayer5 = new Player("LNombre", PlayerPosition.DF, 5,41,241000);
+        Player testPlayer6 = new Player("QNombre", PlayerPosition.FW, 1,24,478323);
         
         List<Player> unsortedPlayers = new ArrayList<>();
         
@@ -92,7 +156,7 @@ public class Main {
     public static boolean saveMethodShouldThrowExceptionWhenDuplicateEntry(){
         Database db = new Database();
 
-        Player testPlayer = new Player("Juan", PlayerPosition.DF, 10);
+        Player testPlayer = new Player("Juan", PlayerPosition.DF, 10,23,500);
 
         try {
             db.save(testPlayer);
@@ -121,7 +185,7 @@ public class Main {
     public static void removeMethodShouldRemoveDtoWithAssertions(){
         Database db = new Database();
 
-        Player testPlayer = new Player("Nombre", PlayerPosition.DF, 10);
+        Player testPlayer = new Player("Nombre", PlayerPosition.DF, 10,25,500);
 
         db.remove(testPlayer);
 
@@ -145,8 +209,8 @@ public class Main {
         
         PlayerPosition posicionInicial = PlayerPosition.DF;
         
-        Player testPlayer = new Player("Juan", posicionInicial, 23);
-        Player updatedTestPlayer = new Player("Juan", PlayerPosition.FW, 30);
+        Player testPlayer = new Player("Juan", posicionInicial, 23,24,500);
+        Player updatedTestPlayer = new Player("Juan", PlayerPosition.FW, 30,47,450);
 
         try {
             db.save(testPlayer);
@@ -161,11 +225,13 @@ public class Main {
     }
 
     public static void shouldOrderThePlayersByNumber(){
-        Player testPlayer1 = new Player("Nombre", PlayerPosition.DF, 10);
-        Player testPlayer2 = new Player("ZNombre", PlayerPosition.GK, 11);
-        Player testPlayer3 = new Player("HNombre", PlayerPosition.DF, 15);
-        Player testPlayer4 = new Player("LNombre", PlayerPosition.DF, 5);
-        Player testPlayer5 = new Player("QNombre", PlayerPosition.FW, 1);
+
+        Player testPlayer = new Player("Juan", PlayerPosition.DF, 10,20,200);
+        Player testPlayer1 = new Player("Pedro", PlayerPosition.DF, 15,22,300);
+        Player testPlayer2 = new Player("Nombre", PlayerPosition.FW, 10,21,65000);
+        Player testPlayer3 = new Player("ZNombre", PlayerPosition.GK, 11,28,74000);
+        Player testPlayer4 = new Player("HNombre", PlayerPosition.MD, 15,27,47000);
+        Player testPlayer5 = new Player("LNombre", PlayerPosition.DF, 5,41,241000);
 
         List<Player> unsortedPlayers = new ArrayList<>();
         unsortedPlayers.add(testPlayer1);
@@ -208,24 +274,25 @@ public class Main {
         List<Player> result1 = controller.findPlayers((Player p) -> (p.getSalary().intValue() >= minSalary) && (p.getAge() == desiredAge)); //3. Simplificar la solución planteada en  2.
 
         result1.forEach(p -> System.out.println(p));
-        }
+    }
     
-        public static void objToAdd() throws DatabaseException{
-        	
-        	Controller controller = new Controller();
-        	
-        	List<Storable> listTest = new ArrayList<>();
-        	
-            Player testPlayer1 = new Player("Nombre", PlayerPosition.DF, 10);
-            Player testPlayer2 = new Player("ZNombre", PlayerPosition.GK, 11);
-            Player testPlayer3 = new Player("HNombre", PlayerPosition.DF, 15);
-            Player testPlayer4 = new Player("LNombre", PlayerPosition.DF, 5);
-            Player testPlayer5 = new Player("QNombre", PlayerPosition.FW, 1);
-        
+    public static void objToAdd() throws DatabaseException {
+
+            Controller controller = new Controller();
+
+            List<Storable> listTest = new ArrayList<>();
+
+            Player testPlayer = new Player("Juan", PlayerPosition.DF, 10, 20, 200);
+            Player testPlayer1 = new Player("Pedro", PlayerPosition.DF, 15, 22, 300);
+            Player testPlayer2 = new Player("Nombre", PlayerPosition.FW, 10, 21, 65000);
+            Player testPlayer3 = new Player("ZNombre", PlayerPosition.GK, 11, 28, 74000);
+            Player testPlayer4 = new Player("HNombre", PlayerPosition.MD, 15, 27, 47000);
+            Player testPlayer5 = new Player("LNombre", PlayerPosition.DF, 5, 41, 241000);
+
 
             List<Storable> resultObjToAdd = controller.saveWithFilter(listTest, (Storable p) -> (((Player) p).getSalary().intValue() >= ((Player) p).getSalary().intValue()));
-            resultObjToAdd.forEach(p -> System.out.println(p));
+           resultObjToAdd.forEach(p -> System.out.println(p));
     }
-
-
 }
+
+
