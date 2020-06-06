@@ -7,6 +7,7 @@ import soccerleague.model.dto.Storable;
 import soccerleague.model.dto.Team;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -40,7 +41,40 @@ public class Controller{
 		return result; // Retornar los jugadores que coincidían con el criterio de selección.
 	}
 
+	public Boolean addPlayer(Player player, Team team) {
+		Boolean almaceno = false;
+		if(!playerInTeam(player)) {
+			//Proceso para adicionar
+		}
+		
+		return almaceno;
+	}
 
+	public boolean playerInTeam(Player playerIn) {
+		Boolean alreadyInTeam = false;
+		List<Team> equipos = db.getAllTeams();
+		for (Team equipo : equipos) {
+			Player[] players =  equipo.getPlayers();
+			Predicate<Player>  PlayerName = p -> p.getName().equals(playerIn.getName());
+					
+			//Ejemplo con findAny
+			//Arrays.asList(players).stream().findAny().filter(PlayerName);
+			
+			//Busca con equals
+			//alreadyInTeam = Arrays.asList(players).stream().equals(playerIn);
+			
+			int contador = (int) Arrays.asList(players).stream().filter(PlayerName).count();
+			if(contador > 0) {
+				alreadyInTeam = true;
+				break;
+			}
+			
+		}
+		
+		return alreadyInTeam;
+	}
+	
+	
 	public void removeByCriterion(List<Storable> lstdto, Predicate pred){
 		
 		if(lstdto != null && !lstdto.isEmpty()) {

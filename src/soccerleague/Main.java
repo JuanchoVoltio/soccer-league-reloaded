@@ -10,6 +10,7 @@ import soccerleague.model.Database;
 import soccerleague.model.DatabaseException;
 import soccerleague.model.dto.Player;
 import soccerleague.model.dto.Storable;
+import soccerleague.util.UtilSL;
 
 /**
  * Class used only for test purposes
@@ -38,7 +39,7 @@ public class Main {
 			db.save(testPlayer2);
 			db.save(testPlayer3);
 			db.save(testPlayer4);
-			db.getAllPlayers().forEach(p -> System.out.println("Nombre ("  + p.getName() + ") -  Edad (" + p.getAge() + ")"));
+		//	db.getAllPlayers().forEach(p -> System.out.println("Nombre ("  + p.getName() + ") -  Edad (" + p.getAge() + ")"));
 			System.out.println("----------------------------------------------");
 			/**  */
 			Controller c = new Controller(db);
@@ -53,6 +54,9 @@ public class Main {
 				Storable s = player;
 				lst.add(s);
 			}
+			UtilSL.printData(lst, allvotingPlayer);
+			
+			System.exit(0);
 			
 			c.removeByCriterion(lst, allvotingPlayer);
 			c.getDb().getAllPlayers().forEach(p -> System.out.println("Nombre ("  + p.getName() + ") -  Edad (" + p.getAge() + ")"));

@@ -156,8 +156,8 @@ public class Database {
 		return this.jugadores;
 	}
 
-
-
-
+	public List<Team> getAllTeams() {
+		return this.equipos;
+	}
 
 }
