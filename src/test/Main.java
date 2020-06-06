@@ -2,6 +2,7 @@ package test;
 
 import static constants.PlayerPosition.FW;
 import static constants.PlayerPosition.GK;
+import java.util.ArrayList;
 
 import java.util.List;
 import java.util.logging.Level;
@@ -10,36 +11,81 @@ import soccerleague.controller.Controller;
 import soccerleague.model.DatabaseException;
 import soccerleague.model.dto.Player;
 
-
-
 public class Main {
 
     public static void main(String[] args) {
        
-     System.out.println();
         try {
-            testMethodImplementationInsideAClass();
+            testMethodtoAddPlayer();
         } catch (DatabaseException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
      
         
     }
+     public static void testMethodtoAddPlayer() throws DatabaseException{
+        Controller controller = new Controller();
+            
+        List<Player> result = new ArrayList<>();
+        
+        result.addAll(List.of(new Player("Ronaldo",GK,1,25,2000),
+                   new Player("Messi",GK,1,25,2000),
+                   new Player("Makaka",GK,1,25,2000),
+                   new Player("Cuadrado",GK,1,25,2000),
+                   new Player("Falcao",GK,1,25,2000),
+                   new Player("Iniesta",GK,1,25,2000)));
+                        
+        controller.addPlayer(result, p -> p.getName().contains("d")|| p.getName().contains("l")); 
+        
+        controller.getDb().getJugadores().forEach(x -> System.out.println(x));
+    }
+    
+    
+    public static void testMethodtoUpperCase() throws DatabaseException{
+        Controller controller = new Controller();
+       
+        controller.getDb().saveAll(List.of(new Player("Ronaldo",GK,1,25,2000),
+                                            new Player("Messi",GK,1,25,2000),
+                                            new Player("Makaka",GK,1,25,2000),
+                                            new Player("Cuadrado",GK,1,25,2000),
+                                            new Player("Falcao",GK,1,25,2000),
+                                            new Player("Iniesta",GK,1,25,2000)));
+                        
+        controller.toUpperCasePlayerNames(p -> p.getName().contains("d")|| p.getName().contains("l")); //3. Simplificar la solución planteada en
+    }
+    
+   
       
+    public static void testMethodImplementationStream() throws DatabaseException{
+        Controller controller = new Controller();
+       
+        controller.getDb().saveAll(List.of(new Player("Ronaldo",GK,1,25,2000),
+                                            new Player("Messi",GK,1,25,2000),
+                                            new Player("Makaka",GK,1,25,2000),
+                                            new Player("Cuadrado",GK,1,25,2000),
+                                            new Player("Falcao",GK,1,25,2000),
+                                            new Player("Iniesta",GK,1,25,2000)));
+        
+        controller.findPlayers(p -> p.getName().contains("d")|| p.getName().contains("l"))
+                               .stream().forEach(p -> System.out.println(p.getName())); //3. Simplificar la solución planteada en
+    }
+    
+    
     public static void testMethodImplementationInsideAClass() throws DatabaseException{
         Controller controller = new Controller();
        
-              
-        Controller.db.save(new Player("Ronaldo",GK,1,25,2000));
-        Controller.db.save(new Player("Falcao",FW,1,25,3000));
-        Controller.db.save(new Player("Mesi",FW,1,25,5000));
+        controller.getDb().saveAll(List.of(new Player("Ronaldo",GK,1,25,2000),
+                                            new Player("Messi",GK,1,25,2000),
+                                            new Player("Makaka",GK,1,25,2000),
+                                            new Player("Cuadrado",GK,1,25,2000),
+                                            new Player("Falcao",GK,1,25,2000),
+                                            new Player("Iniesta",GK,1,25,2000)));
              
         Integer maxSalary = 1000;
         Integer minSalary = 3000;
         Integer desiredAge = 22;
              
-        List<Player> result = controller.findPlayers((Player p) -> (p.getSalary() >= minSalary)); //3. Simplificar la soluciÃ³n planteada en  2.
-
-        result.forEach(p -> System.out.println(p));
+        controller.findPlayers(p -> p.getName().contains("d")|| p.getName().contains("l"))
+                               .stream().forEach(p -> System.out.println(p.getName())); //3. Simplificar la solución planteada en
     }
 }
