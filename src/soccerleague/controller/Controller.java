@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import soccerleague.model.Database;
 import soccerleague.model.DatabaseException;
 import soccerleague.model.dto.Player;
+import soccerleague.model.dto.Storable;
 
 public class Controller{
     
@@ -26,7 +27,7 @@ public class Controller{
     
 //Other Methods---------------------------------------------------------------
     
-    public void addPlayer(Collection<Player> list, Predicate<Player> p){
+    public void addStorable(Collection<Storable> list, Predicate<Storable> p){
         list.stream().filter(p).forEach(pl -> {
             try {
                 db.save(pl);

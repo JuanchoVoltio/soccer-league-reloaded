@@ -32,6 +32,15 @@ public class Database {
         this.jugadores = jugadores;
     }
     
+     public List<Team> getTeam(){
+        return equipos;
+    }
+    
+    public void setTeam(List<Team> equipos){
+        
+        this.equipos = equipos;
+    }
+    
  // save, saveall, remove, removeall, update, find, findById-------------------
     
     public void save(Storable dto) throws DatabaseException{
@@ -80,19 +89,19 @@ public class Database {
                     Player playerFound = (Player) searchResult;
                     Player playerDto = (Player) dto;
                      if(playerDto.getPosition() != null){
-                         System.out.println("se ha modificado la posici�n [" + playerDto.getPosition()+ "] por la posici�n [" + playerFound.getPosition()+"]");
+                         System.out.println("se ha modificado la posici?n [" + playerDto.getPosition()+ "] por la posici?n [" + playerFound.getPosition()+"]");
                          playerFound.setPosition(playerDto.getPosition());
                      }
                      if(playerDto.getNumber() != null){
-                         System.out.println("se ha modificado el n�mero [" + playerDto.getNumber()+ "] por el n�mero [" + playerFound.getNumber()+"]");
+                         System.out.println("se ha modificado el n?mero [" + playerDto.getNumber()+ "] por el n?mero [" + playerFound.getNumber()+"]");
                          playerFound.setNumber(playerDto.getNumber());
                      }
                 } else if (dto instanceof Team) {
                     Team teamFound = (Team)searchResult;
                     Team teamDto = (Team)dto;
-                        if(teamDto.getNameTeam() != null){
-                            System.out.println("se ha modificado el nombre [" + teamDto.getNameTeam()+ "] por el nombre [" + teamFound.getNameTeam()+"]");
-                            teamFound.setNameTeam(teamDto.getNameTeam());
+                        if(teamDto.getName() != null){
+                            System.out.println("se ha modificado el nombre [" + teamDto.getName()+ "] por el nombre [" + teamFound.getName()+"]");
+                            teamFound.setNameTeam(teamDto.getName());
                         }
 
                 }

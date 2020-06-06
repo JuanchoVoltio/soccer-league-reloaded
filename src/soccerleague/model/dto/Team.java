@@ -23,7 +23,8 @@ public class Team implements Storable {
         this.codeTeam = codeTeam;
     }
     
-    public String getNameTeam(){
+   @Override
+    public String getName(){
         return nameTeam;
     }
     
@@ -43,10 +44,10 @@ public class Team implements Storable {
 // override metods---------------------------------------------------------------------    
      @Override
     public String toString(){
-        return "Name Team : " + this.getNameTeam() + "Players : " + "\r" 
-                + this.lineup[0]+this.lineup[1]+this.lineup[2]+this.lineup[3]
-                +this.lineup[4]+this.lineup[5]+this.lineup[6]+this.lineup[7]
-                +this.lineup[8]+this.lineup[9]+this.lineup[10]+ "\r";
+        return "Name Team : " + this.getName()+ "\r" + "Players : " + "\r" 
+                + this.lineup[0]+ "\r"+this.lineup[1]+ "\r"+this.lineup[2]+ "\r"+this.lineup[3]+ "\r"
+                +this.lineup[4]+ "\r"+this.lineup[5]+ "\r"+this.lineup[6]+ "\r"+this.lineup[7]+ "\r"
+                +this.lineup[8]+ "\r"+this.lineup[9]+ "\r"+this.lineup[10]+ "\r";
 
         //+ this.getNumber() + ") - [" + this.getPosition() + "]";
     } 
