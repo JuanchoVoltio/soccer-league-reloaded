@@ -10,6 +10,8 @@ import soccerleague.controller.finders.PlayerFinder;
 import soccerleague.model.Database;
 import soccerleague.model.DatabaseException;
 import soccerleague.model.dto.Player;
+import soccerleague.model.dto.Storable;
+
 
 import java.util.*;
 import java.util.function.Predicate;
@@ -91,7 +93,7 @@ public class Main {
     public static void removeMethodShouldRemoveDtoWithAssertions(){
         Database db = new Database();
 
-        Player testPlayer = new Player("Nombre", PlayerPosition.DF, 10);
+        Player testPlayer = new Player("Nombre", PlayerPosition.DF, 10,25,500);
 
         db.remove(testPlayer);
 

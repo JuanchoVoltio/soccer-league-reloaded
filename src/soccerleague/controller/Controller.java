@@ -7,7 +7,9 @@ import soccerleague.model.dto.Storable;
 import soccerleague.model.dto.Team;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
 public class Controller{
@@ -48,5 +50,9 @@ public class Controller{
         db.getAllPlayers().stream().filter(p).forEach( pl -> System.out.println(pl.getName().toUpperCase()));
     }
 
+	public boolean validateTeam(Team team, Predicate<Team> teamSizeRule, Predicate<Team> fixedPositionRules, BiPredicate<Team, Collection<Team>> exclusivePlayerRule) {
+		return teamSizeRule.test(team) && fixedPositionRules.test(team) || exclusivePlayerRule.test(team, db.getAllTeams());
+	}
+}
 
 }

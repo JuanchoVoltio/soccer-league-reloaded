@@ -10,7 +10,7 @@ public class Team implements Storable {
     public Team(int codeTeam, String nameTeam ) {
         this.codeTeam = codeTeam;
         this.nameTeam = nameTeam;
-        this.lineup   = new Player[11];
+        this.lineup   = new Player[Constants.TEAM_SIZE];
     }
 
     public Team(int codeTeam, String nameTeam, Player[] lineup) {
