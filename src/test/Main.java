@@ -10,34 +10,43 @@ import java.util.logging.Logger;
 import soccerleague.controller.Controller;
 import soccerleague.model.DatabaseException;
 import soccerleague.model.dto.Player;
+import soccerleague.model.dto.Storable;
+import soccerleague.model.dto.Team;
 
 public class Main {
 
     public static void main(String[] args) {
        
         try {
-            testMethodtoAddPlayer();
+            testMethodtoAddStorable();
         } catch (DatabaseException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
      
         
     }
-     public static void testMethodtoAddPlayer() throws DatabaseException{
+     public static void testMethodtoAddStorable() throws DatabaseException{
         Controller controller = new Controller();
             
-        List<Player> result = new ArrayList<>();
+        Player [] team1 = {new Player("Messi",GK,1,25,2000),new Player("Makaka",GK,1,25,2000)
+                            ,new Player("Makaka",GK,1,25,2000),new Player("Makaka",GK,1,25,2000)
+                            ,new Player("Makaka",GK,1,25,2000),new Player("Makaka",GK,1,25,2000)
+                            ,new Player("Makaka",GK,1,25,2000),new Player("Makaka",GK,1,25,2000)
+                            ,new Player("Makaka",GK,1,25,2000),new Player("Makaka",GK,1,25,2000)
+                            ,new Player("Makaka",GK,1,25,2000)};
         
+        List<Storable> result = new ArrayList<>();
         result.addAll(List.of(new Player("Ronaldo",GK,1,25,2000),
                    new Player("Messi",GK,1,25,2000),
                    new Player("Makaka",GK,1,25,2000),
                    new Player("Cuadrado",GK,1,25,2000),
                    new Player("Falcao",GK,1,25,2000),
-                   new Player("Iniesta",GK,1,25,2000)));
+                   new Team(21,"Milan",team1)));
                         
-        controller.addPlayer(result, p -> p.getName().contains("d")|| p.getName().contains("l")); 
+        controller.addStorable(result, p -> p.getName().equals("Messi")|| p.getName().equals("Milan")); 
         
         controller.getDb().getJugadores().forEach(x -> System.out.println(x));
+        controller.getDb().getTeam().forEach(y -> System.out.println(y));
     }
     
     
