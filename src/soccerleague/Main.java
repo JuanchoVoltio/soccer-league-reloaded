@@ -1,5 +1,6 @@
 package soccerleague;
 
+import soccerleague.constants.BusinessRules;
 import soccerleague.constants.PlayerPosition;
 import soccerleague.controller.Controller;
 import soccerleague.controller.comparators.PlayersByPositionComparator;
@@ -11,6 +12,7 @@ import soccerleague.model.Database;
 import soccerleague.model.DatabaseException;
 import soccerleague.model.dto.Player;
 import soccerleague.model.dto.Storable;
+import soccerleague.model.dto.Team;
 
 
 import java.util.*;
@@ -22,7 +24,6 @@ import java.util.function.Predicate;
 public class Main {
 
     public static void main(String... args) {
-
 
         Controller controller = new Controller();
 
@@ -78,21 +79,7 @@ public class Main {
         players1.add(testPlayer010);
         players1.add(testPlayer011);
 
-
-        Predicate <Player> predicategk = p -> p.getPosition().getCode().intValue() == 2;
-        Predicate <Player> predicatedf = p -> p.getPosition().getCode().intValue() == 1;
-        Predicate <Player> predicatemd = p -> p.getPosition().getCode().intValue() == 3;
-        Predicate <Player> predicatefw = p -> p.getPosition().getCode().intValue() == 4;
-
-        controller.validateTeam(players,p -> p.getPosition().getCode().intValue() == 2 || p.getPosition().getCode().intValue() == 1
-                || p.getPosition().getCode().intValue() == 3 || p.getPosition().getCode().intValue() == 4);
-
-
-
-//        controller.validateTeam(players, p -> p.getPosition().getCode().intValue() == 1);
-//        controller.validateTeam(players, p -> p.getPosition().getCode().intValue() == 3);
-//        controller.validateTeam(players, p -> p.getPosition().getCode().intValue() == 4);
-
+        controller.validateTeam(new Team(1, "Real Madrid"), BusinessRules.teamSizeRule, BusinessRules.fixedPositionRules, BusinessRules.exclusivePlayerRule);
 
 
     }
@@ -290,8 +277,6 @@ public class Main {
             Player testPlayer5 = new Player("LNombre", PlayerPosition.DF, 5, 41, 241000);
 
 
-            List<Storable> resultObjToAdd = controller.saveWithFilter(listTest, (Storable p) -> (((Player) p).getSalary().intValue() >= ((Player) p).getSalary().intValue()));
-           resultObjToAdd.forEach(p -> System.out.println(p));
     }
 }
 

@@ -11,13 +11,13 @@ import soccerleague.model.dto.Team;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
 
 public class Controller {
 
-
-	Database db = new Database();
+	private Database db = new Database();
 
 	public boolean validateStorable(Storable subjectToValidate) {
 		//Use generics here.
@@ -25,85 +25,46 @@ public class Controller {
 		throw new UnsupportedOperationException("Method not supported yet");
 	}
 
-	public boolean validateTeam(List<Player> players, Predicate<Player> p) {
+	public List<Player> findPlayers(PlayerFinder finder) {
+		List<Player> result = new ArrayList<>();
 
-		int df = 0, fw = 0, md = 0, gk = 0;
-		int sumPosition = df + fw;
-		for(Player current : players){
-			if (players.size() == 11 && p.test(current)) {
-				if(current.getPosition().getCode().intValue() == 1){
-					df++;
-				}else if(current.getPosition().getCode().intValue() == 2){
-					gk++;
-				}else if(current.getPosition().getCode().intValue() == 3) {
-					md++;
-				}else if(current.getPosition().getCode().intValue() == 4) {
-					fw++;
-				}
+		for (Player current : db.getAllPlayers()) { // Obtener todos los jugadores de la base de datos
+			if (finder.isValid(current)) {  // Aplicar criterio de selección establecido en el lambda
+				result.add(current);
 			}
 		}
 
-		if (sumPosition == 6 && gk == 1 && md == 4 && df > 0 && fw > 0);{
-			if (df == 4 && fw == 2) {
-				System.out.print("Formación: " + gk + "-" + df + "-" + md + "-" + fw);
-			}else if (df == 3 && fw == 3) {
-					System.out.print("Formación: " + gk + "-" + df + "-" + md + "-" + fw);
+		return result; // Retornar los jugadores que coincidían con el criterio de selección.
+	}
+
+	public List<Player> findPlayersUsingPredicate(Predicate<Player> criteria) {
+		List<Player> result = new ArrayList<>();
+
+		for (Player current : db.getAllPlayers()) { //Obtener todos los jugadores de la base de datos
+			if (criteria.test(current)) { //Aplicar criterio de selección establecido en el lambda
+				result.add(current);
 			}
 		}
 
-		return false;
+		return result; // Retornar los jugadores que coincidían con el criterio de selección.
+	}
 
+	public void toUpperCasePlayerNames(Predicate<Player> p) {
+		db.getAllPlayers().stream().filter(p).forEach(pl -> System.out.println(pl.getName().toUpperCase()));
+	}
+
+    /**
+     * Este método nalida el equipo en función de la reglas de negocio (predicates) entregadas como parametros
+     * @param team
+     * @param teamSizeRule
+     * @param fixedPositionRules
+     * @param exclusivePlayerRule
+     * @return
+     */
+
+	public boolean validateTeam(Team team, Predicate<Team> teamSizeRule, Predicate<Team> fixedPositionRules, BiPredicate<Team, Collection<Team>> exclusivePlayerRule) {
+		return teamSizeRule.test(team) && fixedPositionRules.test(team) && exclusivePlayerRule.test(team, db.getAllTeams());
 	}
 
 
-
-
-    
-
-    public List<Player> findPlayers(PlayerFinder finder){
-        List<Player> result = new ArrayList<>();
-
-        for(Player current : db.getAllPlayers()){ // Obtener todos los jugadores de la base de datos
-            if(finder.isValid(current)){  // Aplicar criterio de selección establecido en el lambda
-                result.add(current);
-            }
-        }
-
-        return result; // Retornar los jugadores que coincidían con el criterio de selección.
-    }
-    
-	public List<Storable> saveWithFilter (List <Storable> objToAdd, Predicate<Storable> filterToAdd)throws DatabaseException {
-		
-		List<Storable> resultObjToAdd = new ArrayList<>();
-						
-			for(Storable current : objToAdd ) {
-				if(filterToAdd.test(current)) {
-					resultObjToAdd.add(current);								
-				}
-			}
-		
-			db.saveAll(resultObjToAdd);
-		
-		throw new UnsupportedOperationException();
-	
-	}
-
-	public List<Storable> removeWithFilter (List <Storable> objToAdd, Predicate<Storable> filterToAdd){
-		
-		List<Storable> resultObjToRemove = new ArrayList<>();
-						
-			for(Storable current : objToAdd ) {
-				if(filterToAdd.test(current)) {
-					resultObjToRemove.remove(current);								
-				}
-			}
-		
-
-			db.removeAll(resultObjToRemove);
-		
-		throw new UnsupportedOperationException();
-	
-	}
 }
-
-	

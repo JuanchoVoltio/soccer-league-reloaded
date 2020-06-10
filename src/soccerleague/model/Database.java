@@ -155,4 +155,6 @@ public class Database {
     public Set<Player> getAllPlayers() {
         return this.jugadores;
     }
+
+    public Collection<Team> getAllTeams() { return this.equipos; }
 }
