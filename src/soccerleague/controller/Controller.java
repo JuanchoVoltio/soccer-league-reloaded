@@ -28,6 +28,18 @@ public class Controller{
     
 //Other Methods---------------------------------------------------------------
     
+    public void addStorable(Collection<Storable> list, Predicate<Storable> p){
+        list.stream().filter(p).forEach(pl -> {
+            try {
+                db.save(pl);
+            } catch (DatabaseException ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+    }
+    
+    
+    
     public void addPlayer(Collection<Player> list, Predicate<Player> p){
         list.stream().filter(p).forEach(pl -> {
             try {

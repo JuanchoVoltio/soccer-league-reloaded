@@ -18,7 +18,7 @@ public class Main {
     public static void main(String[] args) {
        
         try {
-            testMethodtoAddPlayer();
+            testMethodtoAddStorable();
         } catch (DatabaseException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -26,6 +26,34 @@ public class Main {
         
     }
     
+    public static void testMethodtoAddStorable() throws DatabaseException{
+        Controller controller = new Controller();
+            
+        List<Storable> result = new ArrayList<>();
+        
+        Player j1 = new Player("Ronaldo",GK,1,25,2000);
+        Player j2 = new Player("Messi",GK,1,25,2000);
+        
+        Player [] team1 = {new Player("Messi",GK,1,25,2000),new Player("Makaka",GK,1,25,2000)
+                            ,new Player("Makaka",FW,1,25,2000),new Player("Makaka",GK,1,25,2000)
+                            ,new Player("Makaka",FW,1,25,2000),new Player("Makaka",GK,1,25,2000)
+                            ,new Player("Makaka",FW,1,25,2000),new Player("Makaka",GK,1,25,2000)
+                            ,new Player("Makaka",FW,1,25,2000),new Player("Makaka",GK,1,25,2000)
+                            ,new Player("ADRIAN",GK,8,25,2000)};
+        
+        Team t1 = new Team(10,"Milan",team1);
+        
+        result.addAll(List.of(j1,j2,t1));
+                        
+        controller.addStorable(result, p -> p.equals(t1)); 
+        
+        controller.getDb().getJugadores().forEach(x -> System.out.println(x));
+        controller.getDb().getTeam().forEach(y -> System.out.println(y));
+    }
+    
+    
+    
+       
     public static void testMethodtoAddPlayer() throws DatabaseException{
         Controller controller = new Controller();
             
@@ -57,12 +85,12 @@ public class Main {
                             ,new Player("Makaka",GK,1,25,2000),new Player("Makaka",GK,1,25,2000)
                             ,new Player("Makaka",GK,1,25,2000),new Player("Makaka",GK,1,25,2000)
                             ,new Player("Makaka",GK,1,25,2000),new Player("Makaka",GK,1,25,2000)
-                            ,new Player("Makaka",GK,1,25,2000)};
+                            ,new Player("adrian",GK,1,25,2000)};
         
         List<Team> result = new ArrayList<>();
         result.addAll(List.of(new Team(21,"Milan",team1),new Team(22,"Juventus",team2)));
                         
-        controller.addTeam(result, p -> p.getNameTeam().equals("Milan")); 
+        controller.addTeam(result, p -> p.getNameTeam().equals("Milan")||p.getNameTeam().equals("Juventus")); 
         
         controller.getDb().getTeam().forEach(y -> System.out.println(y));
     }

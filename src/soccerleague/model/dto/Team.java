@@ -1,5 +1,7 @@
 package soccerleague.model.dto;
 
+import java.util.Arrays;
+
 public class Team implements Storable {
    private Integer codeTeam;
     private String nameTeam;
@@ -50,5 +52,25 @@ public class Team implements Storable {
                 +this.lineup[8]+ "\r"+this.lineup[9]+ "\r"+this.lineup[10]+ "\r";
 
         //+ this.getNumber() + ") - [" + this.getPosition() + "]";
+    } 
+    
+     @Override
+    public boolean equals(Object o){
+
+        //TODO: Agregar comparaci�n para los nuevos atributos
+
+        boolean answer = false;
+        if(o != null && o instanceof Team) {
+            Team obj = (Team) o;
+            answer = (obj.nameTeam.equals(this.nameTeam))
+                    && (obj.codeTeam.intValue() == this.codeTeam.intValue())
+                    && (Arrays.equals(obj.lineup, this.lineup));
+        }
+        return answer;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.nameTeam.hashCode() * this.codeTeam.hashCode() + this.codeTeam;
     } 
 }

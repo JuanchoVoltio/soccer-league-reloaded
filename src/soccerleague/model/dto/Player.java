@@ -79,7 +79,7 @@ public final class Player implements Storable {
         //TODO: Agregar comparaci�n para los nuevos atributos
 
         boolean answer = false;
-        if(o != null) {
+        if(o != null && o instanceof Player) {
             Player obj = (Player) o;
             answer = (obj.name.equals(this.name))
                     && (obj.number.intValue() == this.number.intValue())
