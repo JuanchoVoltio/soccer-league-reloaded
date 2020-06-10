@@ -4,7 +4,7 @@ import constants.PlayerPosition;
 
 public final class Player implements Storable {
 
-  private String name;
+    private String name;
     private PlayerPosition position;
     private Integer number;
     private Integer age;
@@ -23,7 +23,7 @@ public final class Player implements Storable {
     
 // get y set-----------------------------------------------------------
     
-  @Override
+
     public String getName() {
         return name;
     }
@@ -76,7 +76,7 @@ public final class Player implements Storable {
     @Override
     public boolean equals(Object o){
 
-        //TODO: Agregar comparación para los nuevos atributos
+        //TODO: Agregar comparaciï¿½n para los nuevos atributos
 
         boolean answer = false;
         if(o != null) {

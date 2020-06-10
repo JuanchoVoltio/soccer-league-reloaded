@@ -99,9 +99,9 @@ public class Database {
                 } else if (dto instanceof Team) {
                     Team teamFound = (Team)searchResult;
                     Team teamDto = (Team)dto;
-                        if(teamDto.getName() != null){
-                            System.out.println("se ha modificado el nombre [" + teamDto.getName()+ "] por el nombre [" + teamFound.getName()+"]");
-                            teamFound.setNameTeam(teamDto.getName());
+                        if(teamDto.getNameTeam() != null){
+                            System.out.println("se ha modificado el nombre [" + teamDto.getNameTeam()+ "] por el nombre [" + teamFound.getNameTeam()+"]");
+                            teamFound.setNameTeam(teamDto.getNameTeam());
                         }
 
                 }

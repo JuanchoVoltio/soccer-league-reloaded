@@ -10,6 +10,7 @@ import soccerleague.model.Database;
 import soccerleague.model.DatabaseException;
 import soccerleague.model.dto.Player;
 import soccerleague.model.dto.Storable;
+import soccerleague.model.dto.Team;
 
 public class Controller{
     
@@ -27,7 +28,7 @@ public class Controller{
     
 //Other Methods---------------------------------------------------------------
     
-    public void addStorable(Collection<Storable> list, Predicate<Storable> p){
+    public void addPlayer(Collection<Player> list, Predicate<Player> p){
         list.stream().filter(p).forEach(pl -> {
             try {
                 db.save(pl);
@@ -37,8 +38,17 @@ public class Controller{
         });
     }
     
-
-
+    public void addTeam(Collection<Team> list, Predicate<Team> p){
+        list.stream().filter(p).forEach(pl -> {
+            try {
+                db.save(pl);
+            } catch (DatabaseException ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+    }
+    
+    
     public void toUpperCasePlayerNames(Predicate<Player> p){
         db.getJugadores().stream().filter(p).forEach(pl -> System.out.println(pl.getName().toUpperCase()));
     }
@@ -48,11 +58,11 @@ public class Controller{
         List<Player> result = new ArrayList<>();
 
         for(Player current : db.getJugadores()){ //Obtener todos los jugadores de la base de datos
-            if(finder.test(current)){ //Aplicar criterio de selección establecido en el lambda
+            if(finder.test(current)){ //Aplicar criterio de selecciï¿½n establecido en el lambda
                 result.add(current);
             }
         }
 
-        return result; // Retornar los jugadores que coincidían con el criterio de selección.
+        return result; // Retornar los jugadores que coincidï¿½an con el criterio de selecciï¿½n.
     }   
 }

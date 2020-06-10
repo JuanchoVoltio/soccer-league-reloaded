@@ -18,14 +18,30 @@ public class Main {
     public static void main(String[] args) {
        
         try {
-            testMethodtoAddStorable();
+            testMethodtoAddPlayer();
         } catch (DatabaseException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
      
         
     }
-     public static void testMethodtoAddStorable() throws DatabaseException{
+    
+    public static void testMethodtoAddPlayer() throws DatabaseException{
+        Controller controller = new Controller();
+            
+        List<Player> result = new ArrayList<>();
+        result.addAll(List.of(new Player("Ronaldo",GK,1,25,2000),
+                   new Player("Messi",GK,1,25,2000),
+                   new Player("Makaka",GK,1,25,2000),
+                   new Player("Cuadrado",GK,1,25,2000),
+                   new Player("Falcao",GK,1,25,2000)));
+                        
+        controller.addPlayer(result, p -> p.getName().contains("M")|| p.getName().contains("C")); 
+        
+        controller.getDb().getJugadores().forEach(x -> System.out.println(x));
+    }
+    
+    public static void testMethodtoAddTeam() throws DatabaseException{
         Controller controller = new Controller();
             
         Player [] team1 = {new Player("Messi",GK,1,25,2000),new Player("Makaka",GK,1,25,2000)
@@ -35,17 +51,18 @@ public class Main {
                             ,new Player("Makaka",GK,1,25,2000),new Player("Makaka",GK,1,25,2000)
                             ,new Player("Makaka",GK,1,25,2000)};
         
-        List<Storable> result = new ArrayList<>();
-        result.addAll(List.of(new Player("Ronaldo",GK,1,25,2000),
-                   new Player("Messi",GK,1,25,2000),
-                   new Player("Makaka",GK,1,25,2000),
-                   new Player("Cuadrado",GK,1,25,2000),
-                   new Player("Falcao",GK,1,25,2000),
-                   new Team(21,"Milan",team1)));
-                        
-        controller.addStorable(result, p -> p.getName().equals("Messi")|| p.getName().equals("Milan")); 
+        Player [] team2 = {new Player("Messi",GK,1,25,2000),new Player("Makaka",GK,1,25,2000)
+                            ,new Player("Makaka",GK,1,25,2000),new Player("Makaka",GK,1,25,2000)
+                            ,new Player("Makaka",GK,1,25,2000),new Player("Makaka",GK,1,25,2000)
+                            ,new Player("Makaka",GK,1,25,2000),new Player("Makaka",GK,1,25,2000)
+                            ,new Player("Makaka",GK,1,25,2000),new Player("Makaka",GK,1,25,2000)
+                            ,new Player("Makaka",GK,1,25,2000)};
         
-        controller.getDb().getJugadores().forEach(x -> System.out.println(x));
+        List<Team> result = new ArrayList<>();
+        result.addAll(List.of(new Team(21,"Milan",team1),new Team(22,"Juventus",team2)));
+                        
+        controller.addTeam(result, p -> p.getNameTeam().equals("Milan")); 
+        
         controller.getDb().getTeam().forEach(y -> System.out.println(y));
     }
     
@@ -60,7 +77,7 @@ public class Main {
                                             new Player("Falcao",GK,1,25,2000),
                                             new Player("Iniesta",GK,1,25,2000)));
                         
-        controller.toUpperCasePlayerNames(p -> p.getName().contains("d")|| p.getName().contains("l")); //3. Simplificar la solución planteada en
+        controller.toUpperCasePlayerNames(p -> p.getName().contains("d")|| p.getName().contains("l")); //3. Simplificar la soluciï¿½n planteada en
     }
     
    
@@ -76,7 +93,7 @@ public class Main {
                                             new Player("Iniesta",GK,1,25,2000)));
         
         controller.findPlayers(p -> p.getName().contains("d")|| p.getName().contains("l"))
-                               .stream().forEach(p -> System.out.println(p.getName())); //3. Simplificar la solución planteada en
+                               .stream().forEach(p -> System.out.println(p.getName())); //3. Simplificar la soluciï¿½n planteada en
     }
     
     
@@ -95,6 +112,6 @@ public class Main {
         Integer desiredAge = 22;
              
         controller.findPlayers(p -> p.getName().contains("d")|| p.getName().contains("l"))
-                               .stream().forEach(p -> System.out.println(p.getName())); //3. Simplificar la solución planteada en
+                               .stream().forEach(p -> System.out.println(p.getName())); //3. Simplificar la soluciï¿½n planteada en
     }
 }
