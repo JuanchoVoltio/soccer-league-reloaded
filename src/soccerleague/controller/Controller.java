@@ -23,7 +23,7 @@ public class Controller{
 //Other Methods---------------------------------------------------------------
     
     public List<Player> findPlayers(Predicate<Player> finder){
-        List<Player> result = new ArrayList<>();
+        List<Player> result = new ArrayList();
 
         for(Player current : db.getJugadores()){ //Obtener todos los jugadores de la base de datos
             if(finder.test(current)){ //Aplicar criterio de selección establecido en el lambda

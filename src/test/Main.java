@@ -16,7 +16,7 @@ public class Main {
 
     public static void main(String[] args) {
        
-     System.out.println();
+     System.out.println("hola");
         try {
             testMethodImplementationInsideAClass();
         } catch (DatabaseException ex) {
@@ -38,8 +38,8 @@ public class Main {
         Integer minSalary = 3000;
         Integer desiredAge = 22;
              
-        List<Player> result = controller.findPlayers((Player p) -> (p.getSalary() >= minSalary)); //3. Simplificar la solución planteada en  2.
+        controller.findPlayers( p -> p.getSalary() >= minSalary).forEach(x -> System.out.println(x));
 
-        result.forEach(p -> System.out.println(p));
+       // result.forEach(p -> System.out.println(p));
     }
 }

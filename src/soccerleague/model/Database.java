@@ -17,8 +17,8 @@ public class Database {
     }
 
     public void init(){
-        this.jugadores = new ArrayList<>();
-        this.equipos = new ArrayList<>();
+        this.jugadores = new ArrayList();
+        this.equipos = new ArrayList();
     }
     
 // Gets and Set -----------------------------------------------------------
