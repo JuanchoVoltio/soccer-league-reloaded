@@ -30,6 +30,7 @@ public class Main {
         Controller controller = new Controller();
             
         List<Player> result = new ArrayList<>();
+        
         result.addAll(List.of(new Player("Ronaldo",GK,1,25,2000),
                    new Player("Messi",GK,1,25,2000),
                    new Player("Makaka",GK,1,25,2000),
