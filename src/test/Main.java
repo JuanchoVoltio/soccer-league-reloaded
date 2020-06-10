@@ -28,9 +28,7 @@ public class Main {
     
     public static void testMethodtoAddStorable() throws DatabaseException{
         Controller controller = new Controller();
-            
-        List<Storable> result = new ArrayList<>();
-        
+                    
         Player j1 = new Player("Ronaldo",GK,1,25,2000);
         Player j2 = new Player("Messi",GK,1,25,2000);
         
@@ -43,12 +41,16 @@ public class Main {
         
         Team t1 = new Team(10,"Milan",team1);
         
+        
+        List<Storable> result = new ArrayList<>();
+        
         result.addAll(List.of(j1,j2,t1));
                         
-        controller.addStorable(result, p -> p.equals(t1)); 
+        controller.addStorable(result, p -> p.equals(t1) || p.equals(j1)); 
         
         controller.getDb().getJugadores().forEach(x -> System.out.println(x));
         controller.getDb().getTeam().forEach(y -> System.out.println(y));
+        
     }
     
     
