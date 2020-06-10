@@ -86,6 +86,12 @@ public class Controller{
 			
 		}
 	}
+	
+	
+	public boolean validateTeam(Team team, Predicate<Team> teamSizeRule, Predicate<Team> fixedPositionRules, Predicate<Team> teamAlignmentRule ) {
+		return teamSizeRule.test(team) && fixedPositionRules.test(team) && teamAlignmentRule.test(team);
+	}
+	
 
 	public Database getDb(){ return this.db;}
 }
