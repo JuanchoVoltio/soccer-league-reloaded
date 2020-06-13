@@ -3,6 +3,7 @@ package soccerleague.controller;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,6 +28,49 @@ public class Controller{
     }
     
 //Other Methods---------------------------------------------------------------
+    
+    public void saveValidateTeam(Team team, Predicate<Team> teamSizeRule, Predicate<Team> fixedPositionRules, BiPredicate<Team, Collection<Team>> exclusivePlayerRule) {
+	
+        if (teamSizeRule.test(team) && fixedPositionRules.test(team) && exclusivePlayerRule.test(team, db.getTeam())){
+            try {
+                db.save(team);
+                System.out.println("Equipo inscrito");
+            } catch (DatabaseException ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }else{
+            System.out.println("El equipo no es valido");
+        }
+    
+    }
+    
+    public void toUpperCasePlayerNames2(Predicate<Player> p){
+        
+        db.getJugadores().stream().filter(p).forEach( pl -> System.out.println(pl.getName().toUpperCase()));
+    
+    }
+
+    public boolean validateTeam(Team team, Predicate<Team> teamSizeRule, Predicate<Team> fixedPositionRules, BiPredicate<Team, Collection<Team>> exclusivePlayerRule) {
+	
+        return teamSizeRule.test(team) && fixedPositionRules.test(team) || exclusivePlayerRule.test(team, db.getTeam());
+    
+    }
+    
+    
+    
+    
+    
+    public void addStorable2(Collection<Storable> list, Predicate<Storable> p){
+        list.stream().filter(p).forEach(pl -> {
+            try {
+                db.save(pl);
+            } catch (DatabaseException ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+    }
+        
     
     public void addStorable(Collection<Storable> list, Predicate<Storable> p){
         list.stream().filter(p).forEach(pl -> {

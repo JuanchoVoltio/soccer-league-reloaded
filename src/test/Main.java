@@ -1,7 +1,7 @@
 package test;
 
-import static constants.PlayerPosition.FW;
-import static constants.PlayerPosition.GK;
+import constants.BusinessRules;
+import static constants.PlayerPosition.*;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -17,14 +17,63 @@ public class Main {
 
     public static void main(String[] args) {
        
-        try {
-            testMethodtoAddStorable();
-        } catch (DatabaseException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        testSaveValidateTeam();
      
         
     }
+    
+    public static void testSaveValidateTeam(){
+        
+        Controller controller = new Controller();
+        
+        Player [] team1 = {new Player("Messi",GK,1,25,2000),new Player("Makaka",DF,1,25,2000)
+                            ,new Player("Makaka",DF,1,25,2000),new Player("Makaka",DF,1,25,2000)
+                            ,new Player("Makaka",MD,1,25,2000),new Player("Makaka",MD,1,25,2000)
+                            ,new Player("Makaka",FW,1,25,2000),new Player("Makaka",MD,1,25,2000)
+                            ,new Player("Makaka",FW,1,25,2000),new Player("Makaka",FW,1,25,2000)
+                            ,new Player("Makaka",FW,1,25,2000)};
+        
+        Team t1 = new Team(10,"Milan",team1);
+        
+        controller.saveValidateTeam(t1, BusinessRules.teamSizeRule, BusinessRules.fixedPositionRules, BusinessRules.exclusivePlayerRule);
+        
+        //controller.getDb().getTeam().forEach(y -> System.out.println(y));
+        
+    }
+    
+    
+    public static void testMethodtoAddStorable2() throws DatabaseException{
+        Controller controller = new Controller();
+                    
+        Player j1 = new Player("Ronaldo",GK,1,25,2000);
+        Player j2 = new Player("Messi",GK,1,25,2000);
+        
+        Player [] team1 = {new Player("Messi",GK,1,25,2000),new Player("Makaka",GK,1,25,2000)
+                            ,new Player("Makaka",FW,1,25,2000),new Player("Makaka",GK,1,25,2000)
+                            ,new Player("Makaka",FW,1,25,2000),new Player("Makaka",GK,1,25,2000)
+                            ,new Player("Makaka",FW,1,25,2000),new Player("Makaka",GK,1,25,2000)
+                            ,new Player("Makaka",FW,1,25,2000),new Player("Makaka",GK,1,25,2000)
+                            ,new Player("ADRIAN",GK,8,25,2000)};
+        
+        Team t1 = new Team(10,"Milan",team1);
+        
+        
+        List<Storable> result = new ArrayList();
+        
+        result.addAll(List.of(j1,j2,t1));
+        
+        System.out.println(t1.getClass());
+        
+        //controller.addStorable(result, p -> p.getClass().isNestmateOf(Player);                                                    }); 
+        
+        //controller.getDb().getJugadores().forEach(x -> System.out.println(x));
+        //controller.getDb().getTeam().forEach(y -> System.out.println(y));
+        
+    }
+    
+    
+    
+    
     
     public static void testMethodtoAddStorable() throws DatabaseException{
         Controller controller = new Controller();
@@ -52,6 +101,7 @@ public class Main {
         controller.getDb().getTeam().forEach(y -> System.out.println(y));
         
     }
+    
     
     
     
