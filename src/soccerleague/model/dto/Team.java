@@ -3,9 +3,11 @@ package soccerleague.model.dto;
 import java.util.Arrays;
 
 public class Team implements Storable {
-   private Integer codeTeam;
+    private Integer codeTeam;
     private String nameTeam;
     private Player[] lineup;
+    private int defenseProbability;
+    private int attackProbability;
     
 // Contructors----------------------------------------------------------
     
@@ -41,7 +43,23 @@ public class Team implements Storable {
     public void setLineup(Player[] lineup){
         this.lineup = lineup;
     }
+    
+    public int getDefenseProbability(){
+        return defenseProbability;
+    }
+    
+    public void setDefenseProbability(int d){
+        this.defenseProbability = d;
+    }
      
+    public int getAttackProbability(){
+        return attackProbability;
+    }
+    
+    public void setAttackProbability(int d){
+        this.attackProbability = d;
+    }
+    
     
 // override metods---------------------------------------------------------------------    
      @Override

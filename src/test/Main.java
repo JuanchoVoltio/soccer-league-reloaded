@@ -25,7 +25,7 @@ public class Main {
         
         Controller controller = new Controller();
         
-        Player [] team1 = {new Player("Messi",GK,1,25,2000),new Player("Makaka",DF,1,25,2000)
+        Player [] team1 = {new Player("Messi",FW,1,25,2000),new Player("Makaka",DF,1,25,2000)
                             ,new Player("Makaka",DF,1,25,2000),new Player("Makaka",DF,1,25,2000)
                             ,new Player("Makaka",MD,1,25,2000),new Player("Makaka",MD,1,25,2000)
                             ,new Player("Makaka",MD,1,25,2000),new Player("Makaka",MD,1,25,2000)
@@ -34,11 +34,7 @@ public class Main {
         
         Team t1 = new Team(10,"Milan",team1);
         
-        controller.saveValidateTeam(t1, BusinessRules.teamSizeRule, BusinessRules.fixedPositionRules, BusinessRules.exclusivePlayerRule);
-        
-        System.out.println("Defense probability: "+t1.getNameTeam()+" "+controller.defenseProbabilityTeam(t1));
-        System.out.println("Attack probability: "+t1.getNameTeam()+" "+controller.attackProbabilityTeam(t1));
-        controller.getDb().getTeam().forEach(y -> System.out.println(y));
+        controller.saveValidateTeam(t1, BusinessRules.teamSizeRule, BusinessRules.fixedPositionRules, BusinessRules.exclusivePlayerRule);       
         
     }
     
@@ -65,16 +61,9 @@ public class Main {
         
         System.out.println(t1.getClass());
         
-        //controller.addStorable(result, p -> p.getClass().isNestmateOf(Player);                                                    }); 
-        
-        //controller.getDb().getJugadores().forEach(x -> System.out.println(x));
-        //controller.getDb().getTeam().forEach(y -> System.out.println(y));
+        //controller.addStorable(result, p -> p.getClass().isNestmateOf(Player); });  
         
     }
-    
-    
-    
-    
     
     public static void testMethodtoAddStorable() throws DatabaseException{
         Controller controller = new Controller();
@@ -98,15 +87,9 @@ public class Main {
                         
         controller.addStorable(result, p -> p.equals(t1) || p.equals(j1)); 
         
-        controller.getDb().getJugadores().forEach(x -> System.out.println(x));
-        controller.getDb().getTeam().forEach(y -> System.out.println(y));
-        
     }
     
-    
-    
-    
-       
+  
     public static void testMethodtoAddPlayer() throws DatabaseException{
         Controller controller = new Controller();
             

@@ -43,29 +43,27 @@ public class Controller{
     }
     
        
-//Other Methods---------------------------------------------------------------
-    
-    public Integer defenseProbabilityTeam (Team t){
-        return  defenseProbability.apply(t);
-    }             
-    
-    public Integer attackProbabilityTeam (Team t){
-        return  attackProbability.apply(t);
-    }  
-       
+//Other Methods---------------------------------------------------------------  
     
     public void saveValidateTeam(Team team, Predicate<Team> teamSizeRule, Predicate<Team> fixedPositionRules, BiPredicate<Team, Collection<Team>> exclusivePlayerRule) {
 	
         if (teamSizeRule.test(team) && fixedPositionRules.test(team) && exclusivePlayerRule.test(team, db.getTeam())){
             try {
-                db.save(team);
-                System.out.println("FELICIDADES! el equipo esta inscrito");
+                db.save(team);       
             } catch (DatabaseException ex) {
                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+                
+            System.out.println("FELICIDADES! el equipo esta inscrito\n");
+                
+            team.setDefenseProbability(defenseProbability.apply(team));
+            team.setAttackProbability(attackProbability.apply(team));
+                
+            System.out.println("Defense probability: "+team.getNameTeam()+" "+team.getDefenseProbability()+"%");
+            System.out.println("Attack probability: "+team.getNameTeam()+" "+team.getAttackProbability()+"%");
+
         }else{
-            System.out.println("El equipo no es valido");
+            System.out.println("El equipo no es valido porqué:");
             if (!teamSizeRule.test(team))
                 System.out.println("Faltan jugadores");
             if (!fixedPositionRules.test(team))
@@ -73,6 +71,8 @@ public class Controller{
             if (!exclusivePlayerRule.test(team, db.getTeam()))
                 System.out.println("Hay jugadores repetidos");
         }
+        
+     db.getTeam().forEach(y -> System.out.println(y));
     
     }
     
@@ -88,10 +88,7 @@ public class Controller{
         return teamSizeRule.test(team) && fixedPositionRules.test(team) || exclusivePlayerRule.test(team, db.getTeam());
     
     }
-    
-    
-    
-    
+     
     
     public void addStorable2(Collection<Storable> list, Predicate<Storable> p){
         list.stream().filter(p).forEach(pl -> {
@@ -101,6 +98,9 @@ public class Controller{
                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
+        
+        db.getJugadores().forEach(x -> System.out.println(x));
+        db.getTeam().forEach(y -> System.out.println(y));
     }
         
     
@@ -112,6 +112,9 @@ public class Controller{
                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
+        
+         db.getJugadores().forEach(x -> System.out.println(x));
+         db.getTeam().forEach(y -> System.out.println(y));
     }
     
     

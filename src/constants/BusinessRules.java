@@ -13,8 +13,10 @@ import static constants.PlayerPosition.*;
 
 public class BusinessRules {
     
-    public static BiPredicate<Team, Collection<Team>> exclusivePlayerRule = (team, list) -> {return true;};
+    public static BiPredicate<Team, Collection<Team>> exclusivePlayerRule = (team, list) -> {return true;   };
 
+  //  public static BiPredicate<Team, Collection<Team>> exclusivePlayerRule = (team, list) -> {Arrays.asList(team.getLineup()).get(0);
+                                                                                           //  return true;   };
 
     public static Predicate<Team> fixedPositionRules = t -> {
                                                                 List gk = Arrays.asList(t.getLineup()).stream().filter(p -> p.getPosition() == GK).collect(Collectors.toList());
