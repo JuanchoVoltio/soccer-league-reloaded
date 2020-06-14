@@ -19,7 +19,6 @@ public class Main {
        
         testSaveValidateTeam();
      
-        
     }
     
     public static void testSaveValidateTeam(){
@@ -29,7 +28,7 @@ public class Main {
         Player [] team1 = {new Player("Messi",GK,1,25,2000),new Player("Makaka",DF,1,25,2000)
                             ,new Player("Makaka",DF,1,25,2000),new Player("Makaka",DF,1,25,2000)
                             ,new Player("Makaka",MD,1,25,2000),new Player("Makaka",MD,1,25,2000)
-                            ,new Player("Makaka",FW,1,25,2000),new Player("Makaka",MD,1,25,2000)
+                            ,new Player("Makaka",MD,1,25,2000),new Player("Makaka",MD,1,25,2000)
                             ,new Player("Makaka",FW,1,25,2000),new Player("Makaka",FW,1,25,2000)
                             ,new Player("Makaka",FW,1,25,2000)};
         
@@ -37,7 +36,9 @@ public class Main {
         
         controller.saveValidateTeam(t1, BusinessRules.teamSizeRule, BusinessRules.fixedPositionRules, BusinessRules.exclusivePlayerRule);
         
-        //controller.getDb().getTeam().forEach(y -> System.out.println(y));
+        System.out.println("Defense probability: "+t1.getNameTeam()+" "+controller.defenseProbabilityTeam(t1));
+        System.out.println("Attack probability: "+t1.getNameTeam()+" "+controller.attackProbabilityTeam(t1));
+        controller.getDb().getTeam().forEach(y -> System.out.println(y));
         
     }
     

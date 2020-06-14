@@ -1,21 +1,36 @@
 package soccerleague.controller;
 
+import constants.PlayerPosition;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.BiPredicate;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import soccerleague.model.Database;
 import soccerleague.model.DatabaseException;
 import soccerleague.model.dto.Player;
 import soccerleague.model.dto.Storable;
 import soccerleague.model.dto.Team;
+import static constants.PlayerPosition.*;
 
 public class Controller{
     
       private Database db = new Database();
+      
+      private Function<Team, Integer> defenseProbability = t -> {
+                                                                List df = Arrays.asList(t.getLineup()).stream().filter(p -> p.getPosition() == DF).collect(Collectors.toList());
+                                                                return (df.size()*25)-50;
+                                                            };
+    
+      private Function<Team, Integer> attackProbability = t -> {
+                                                                List gk = Arrays.asList(t.getLineup()).stream().filter(p -> p.getPosition() == FW).collect(Collectors.toList());
+                                                                return (gk.size()*25);
+                                                            };
     
 //Get and SET methods----------------------------------------------------
     
@@ -27,20 +42,36 @@ public class Controller{
         return db;
     }
     
+       
 //Other Methods---------------------------------------------------------------
+    
+    public Integer defenseProbabilityTeam (Team t){
+        return  defenseProbability.apply(t);
+    }             
+    
+    public Integer attackProbabilityTeam (Team t){
+        return  attackProbability.apply(t);
+    }  
+       
     
     public void saveValidateTeam(Team team, Predicate<Team> teamSizeRule, Predicate<Team> fixedPositionRules, BiPredicate<Team, Collection<Team>> exclusivePlayerRule) {
 	
         if (teamSizeRule.test(team) && fixedPositionRules.test(team) && exclusivePlayerRule.test(team, db.getTeam())){
             try {
                 db.save(team);
-                System.out.println("Equipo inscrito");
+                System.out.println("FELICIDADES! el equipo esta inscrito");
             } catch (DatabaseException ex) {
                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
             }
             
         }else{
             System.out.println("El equipo no es valido");
+            if (!teamSizeRule.test(team))
+                System.out.println("Faltan jugadores");
+            if (!fixedPositionRules.test(team))
+                System.out.println("La alineación no es permitida");
+            if (!exclusivePlayerRule.test(team, db.getTeam()))
+                System.out.println("Hay jugadores repetidos");
         }
     
     }
@@ -51,6 +82,7 @@ public class Controller{
     
     }
 
+    
     public boolean validateTeam(Team team, Predicate<Team> teamSizeRule, Predicate<Team> fixedPositionRules, BiPredicate<Team, Collection<Team>> exclusivePlayerRule) {
 	
         return teamSizeRule.test(team) && fixedPositionRules.test(team) || exclusivePlayerRule.test(team, db.getTeam());
