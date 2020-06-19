@@ -10,6 +10,7 @@ import soccerleague.controller.finders.FinderByAgeRange;
 import soccerleague.controller.finders.PlayerFinder;
 import soccerleague.model.Database;
 import soccerleague.model.DatabaseException;
+import soccerleague.model.dto.Constants;
 import soccerleague.model.dto.Player;
 import soccerleague.model.dto.Storable;
 import soccerleague.model.dto.Team;
@@ -32,7 +33,7 @@ public class Main {
         Player testPlayer3 = new Player("J. Cuadrado", PlayerPosition.DF, 4, 22, 330000);
         Player testPlayer4 = new Player("Hummels", PlayerPosition.DF, 2, 22, 130000);
         Player testPlayer5 = new Player("Marcelo", PlayerPosition.DF, 5, 22, 530000);
-        Player testPlayer6 = new Player("Tony Kross", PlayerPosition.MD, 8, 22, 830000);
+        Player testPlayer6 = new Player("Tony Kross", PlayerPosition.DF, 8, 22, 830000);
         Player testPlayer7 = new Player("Messi", PlayerPosition.MD, 10, 22, 630000);
         Player testPlayer8 = new Player("Kantè", PlayerPosition.MD, 6, 22, 730000);
         Player testPlayer9 = new Player("Ronaldo", PlayerPosition.MD, 7, 22, 300070);
@@ -63,7 +64,7 @@ public class Main {
         players.add(testPlayer8);
         players.add(testPlayer9);
         players.add(testPlayer10);
-        players.add(testPlayer11);
+        //players.add(testPlayer11);
 
         List<Player> players1 = new ArrayList<>();
 
@@ -79,8 +80,9 @@ public class Main {
         players1.add(testPlayer010);
         players1.add(testPlayer011);
 
-        controller.validateTeam(new Team(1, "Real Madrid"), BusinessRules.teamSizeRule, BusinessRules.fixedPositionRules, BusinessRules.exclusivePlayerRule);
-
+        Player[] arrayPlayers = new Player[players.size()];
+        arrayPlayers = players.toArray(arrayPlayers);
+        controller.validateTeam(new Team(1, "Real Madrid", arrayPlayers), BusinessRules.teamSizeRule, BusinessRules.fixedPositionRules, BusinessRules.exclusivePlayerRule);
 
     }
 //        Player p = new Player("Nombre", PlayerPosition.DF, 10);

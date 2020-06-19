@@ -1,6 +1,7 @@
 package soccerleague.controller;
 
 
+import org.w3c.dom.ls.LSOutput;
 import soccerleague.constants.PlayerPosition;
 import soccerleague.controller.finders.PlayerFinder;
 import soccerleague.model.Database;
@@ -63,7 +64,10 @@ public class Controller {
      */
 
 	public boolean validateTeam(Team team, Predicate<Team> teamSizeRule, Predicate<Team> fixedPositionRules, BiPredicate<Team, Collection<Team>> exclusivePlayerRule) {
+
 		return teamSizeRule.test(team) && fixedPositionRules.test(team) && exclusivePlayerRule.test(team, db.getAllTeams());
+
+
 	}
 
 
