@@ -79,7 +79,7 @@ public class Controller{
                 System.out.println("Hay jugadores que están registrados en otros equipos");
         }
         
-     //db.getTeam().forEach(y -> System.out.println(y));
+    
     
     }
       
