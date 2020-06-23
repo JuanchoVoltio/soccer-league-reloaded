@@ -25,16 +25,36 @@ public class Main {
         
         Controller controller = new Controller();
         
-        Player [] team1 = {new Player("Messi",FW,1,25,2000),new Player("Makaka",DF,1,25,2000)
+        Player [] team1 = {new Player("Makaka",GK,1,25,2000),new Player("Makaka",DF,1,25,2000)
                             ,new Player("Makaka",DF,1,25,2000),new Player("Makaka",DF,1,25,2000)
                             ,new Player("Makaka",MD,1,25,2000),new Player("Makaka",MD,1,25,2000)
                             ,new Player("Makaka",MD,1,25,2000),new Player("Makaka",MD,1,25,2000)
                             ,new Player("Makaka",FW,1,25,2000),new Player("Makaka",FW,1,25,2000)
                             ,new Player("Makaka",FW,1,25,2000)};
         
+        Player [] team2 = {new Player("Makaka",GK,1,25,2000),new Player("Makaka",DF,1,25,2000)
+                            ,new Player("Makaka",DF,1,25,2000),new Player("Makaka",DF,1,25,2000)
+                            ,new Player("Makaka",MD,1,25,2000),new Player("Makaka",MD,1,25,2000)
+                            ,new Player("Makaka",MD,1,25,2000),new Player("Makaka",MD,1,25,2000)
+                            ,new Player("Makaka",FW,1,25,2000),new Player("Makaka",FW,1,25,2000)
+                            ,new Player("Messi",FW,1,25,2000)};
+        
+        Player [] team3 = {new Player("Messi",GK,1,25,2000),new Player("Messi",DF,1,25,2000)
+                            ,new Player("Messi",DF,1,25,2000),new Player("Messi",DF,1,25,2000)
+                            ,new Player("Messi",MD,1,25,2000),new Player("Messi",MD,1,25,2000)
+                            ,new Player("Messi",MD,1,25,2000),new Player("Messi",MD,1,25,2000)
+                            ,new Player("Messi",FW,1,25,2000),new Player("Messi",FW,1,25,2000)
+                            ,new Player("Messi",FW,1,25,2000)};
+        
         Team t1 = new Team(10,"Milan",team1);
+        Team t2 = new Team(11,"Juventus",team2);
+        Team t3 = new Team(12,"Real Madrid",team3);
         
         controller.saveValidateTeam(t1, BusinessRules.teamSizeRule, BusinessRules.fixedPositionRules, BusinessRules.exclusivePlayerRule);       
+        controller.saveValidateTeam(t2, BusinessRules.teamSizeRule, BusinessRules.fixedPositionRules, BusinessRules.exclusivePlayerRule);       
+        controller.saveValidateTeam(t3, BusinessRules.teamSizeRule, BusinessRules.fixedPositionRules, BusinessRules.exclusivePlayerRule);       
+        
+       // controller.printTeams();
         
     }
     

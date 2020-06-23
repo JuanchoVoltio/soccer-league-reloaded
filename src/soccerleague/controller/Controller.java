@@ -45,16 +45,22 @@ public class Controller{
        
 //Other Methods---------------------------------------------------------------  
     
-    public void saveValidateTeam(Team team, Predicate<Team> teamSizeRule, Predicate<Team> fixedPositionRules, BiPredicate<Team, Collection<Team>> exclusivePlayerRule) {
-	
+   // public void saveValidateTeam(Team team, Predicate<Team> teamSizeRule, Predicate<Team> fixedPositionRules, BiPredicate<Team, Collection<Team>> exclusivePlayerRule) {
+        // public void saveValidateTeam(Team team, Predicate<Team> teamSizeRule, Predicate<Team> fixedPositionRules, Predicate<Team> exclusivePlayerRule) {
+       // if (teamSizeRule.test(team) && fixedPositionRules.test(team) && exclusivePlayerRule.test(team, db.getTeam())){
+         //  if (teamSizeRule.test(team) && fixedPositionRules.test(team) && exclusivePlayerRule.test(team)){
+        
+      public void saveValidateTeam(Team team, Predicate<Team> teamSizeRule, Predicate<Team> fixedPositionRules, BiPredicate<Team, Collection<Team>> exclusivePlayerRule) {
+
         if (teamSizeRule.test(team) && fixedPositionRules.test(team) && exclusivePlayerRule.test(team, db.getTeam())){
+
             try {
                 db.save(team);       
             } catch (DatabaseException ex) {
                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
             }
                 
-            System.out.println("FELICIDADES! el equipo esta inscrito\n");
+            System.out.println("\nFELICIDADES! el equipo " + team.getNameTeam().toUpperCase() + " esta inscrito\n");
                 
             team.setDefenseProbability(defenseProbability.apply(team));
             team.setAttackProbability(attackProbability.apply(team));
@@ -63,17 +69,22 @@ public class Controller{
             System.out.println("Attack probability: "+team.getNameTeam()+" "+team.getAttackProbability()+"%");
 
         }else{
-            System.out.println("El equipo no es valido porqué:");
+            System.out.println("\nERROR! el equipo " + team.getNameTeam().toUpperCase() + " no es valido porqué:");
             if (!teamSizeRule.test(team))
                 System.out.println("Faltan jugadores");
             if (!fixedPositionRules.test(team))
                 System.out.println("La alineación no es permitida");
-            if (!exclusivePlayerRule.test(team, db.getTeam()))
-                System.out.println("Hay jugadores repetidos");
+           // if (!exclusivePlayerRule.test(team, ))
+           if (!exclusivePlayerRule.test(team, db.getTeam()))
+                System.out.println("Hay jugadores que están registrados en otros equipos");
         }
         
-     db.getTeam().forEach(y -> System.out.println(y));
+     //db.getTeam().forEach(y -> System.out.println(y));
     
+    }
+      
+    public void printTeams(){
+        db.getTeam().forEach(y -> System.out.println(y));
     }
     
     public void toUpperCasePlayerNames2(Predicate<Player> p){

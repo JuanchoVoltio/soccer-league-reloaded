@@ -13,24 +13,38 @@ import static constants.PlayerPosition.*;
 
 public class BusinessRules {
     
-    public static BiPredicate<Team, Collection<Team>> exclusivePlayerRule = (team, list) -> {return true;   };
+    public static BiPredicate<Team, Collection<Team>> exclusivePlayerRule = (team, list) -> 
+    {
+         return Arrays.asList(team.getLineup()).stream().allMatch(s-> 
+         
+                list.stream().allMatch(p -> 
+                         
+                Arrays.asList(p.getLineup()).stream().noneMatch(t-> 
+                                 
+                t.getName().equals(s.getName()))));
+    };
+ 
+ /*   
+    public static Predicate<Team> exclusivePlayerRule = (team) -> 
+    {
+       //return Arrays.asList(team.getLineup()).stream().allmatch(t -> t.getName.equals("Messi"));
+      return Arrays.asList(team.getLineup()).stream().noneMatch(p -> p.getName().equals("Messi")); 
+   
+    };
+*/
+    public static Predicate<Team> fixedPositionRules = t -> 
+    {
+       List gk = Arrays.asList(t.getLineup()).stream().filter(p -> p.getPosition() == GK).collect(Collectors.toList());
+       List md = Arrays.asList(t.getLineup()).stream().filter(p -> p.getPosition() == MD).collect(Collectors.toList());
+       List fw = Arrays.asList(t.getLineup()).stream().filter(p -> p.getPosition() == FW).collect(Collectors.toList());
+       List df = Arrays.asList(t.getLineup()).stream().filter(p -> p.getPosition() == DF).collect(Collectors.toList());
+       return gk.size() == 1 && md.size() == 4 && (fw.size()+df.size()) == 6 && fw.size() > 0  && df.size()> 0;
+    };
 
-  //  public static BiPredicate<Team, Collection<Team>> exclusivePlayerRule = (team, list) -> {Arrays.asList(team.getLineup()).get(0);
-                                                                                           //  return true;   };
-
-    public static Predicate<Team> fixedPositionRules = t -> {
-                                                                List gk = Arrays.asList(t.getLineup()).stream().filter(p -> p.getPosition() == GK).collect(Collectors.toList());
-                                                                List md = Arrays.asList(t.getLineup()).stream().filter(p -> p.getPosition() == MD).collect(Collectors.toList());
-                                                                List fw = Arrays.asList(t.getLineup()).stream().filter(p -> p.getPosition() == FW).collect(Collectors.toList());
-                                                                List df = Arrays.asList(t.getLineup()).stream().filter(p -> p.getPosition() == DF).collect(Collectors.toList());
-                                                                return gk.size() == 1 && md.size() == 4 && (fw.size()+df.size()) == 6 && fw.size() > 0  && df.size()> 0;
-                                                            };
-
-    public static Predicate<Team> teamSizeRule = t -> {
-                                                        List result = Arrays.asList(t.getLineup()).stream().filter(p -> p != null).collect(Collectors.toList());
-                                                        return result.size() == 11;
-                                                    };
-    
-    
+    public static Predicate<Team> teamSizeRule = t -> 
+    {
+       List result = Arrays.asList(t.getLineup()).stream().filter(p -> p != null).collect(Collectors.toList());
+       return result.size()== 11;
+    };
     
 }
