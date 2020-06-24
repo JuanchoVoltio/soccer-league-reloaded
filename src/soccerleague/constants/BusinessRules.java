@@ -8,23 +8,27 @@ import soccerleague.model.dto.Team;
 
 import java.util.*;
 import java.util.function.BiPredicate;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class BusinessRules{
     public static BiPredicate<Team, Collection<Team>> exclusivePlayerRule = (team, list) -> {
 
-//      List<String> namePlayers= new ArrayList<>();
-//       for (Team t : list) {
-//            for (Player p : t.getPlayers()) {
-//                namePlayers.add(p.getName());
-//            }
-//       }
-        List players = Arrays.asList(list.stream().map(l -> (team.getPlayers())).collect(Collectors.toList()));
-        List namePlayers = Arrays.asList(players.stream().map(p -> ((Player) p).getName()).collect(Collectors.toList()));
-        List repeatPlayers = Arrays.asList(team.getPlayers()).stream().filter(p -> p.getName().equals(namePlayers)).collect(Collectors.toList());
+        Boolean result = false;
 
-        return repeatPlayers.isEmpty();
+        for (Team t : list) {
+            for (Player p : t.getPlayers()) {
+                Boolean repeatPlayers = Arrays.asList(team.getPlayers()).stream().noneMatch(pl -> pl.getName().equalsIgnoreCase(p.getName()));
+                result = repeatPlayers;
+            }
+       }
+
+//        List players = Arrays.asList(list.stream().map(l -> (team.getPlayers())).collect(Collectors.toList()));
+//        List namePlayers = Arrays.asList(players.stream().map(p -> ((Player) p).getName()).collect(Collectors.toList()));
+//        Boolean repeatPlayers = Arrays.asList(team.getPlayers()).stream().noneMatch(p -> p.getName().equals(namePlayers));
+
+        return result;
     };
 
 
@@ -37,7 +41,7 @@ public class BusinessRules{
         return gk.size() == 1 && md.size() == 4 && df.size() > 0 && fw.size() > 0 && sumPosition.size() == 6;
     };
 
-    public static Predicate<Team> teamAlignmentRules = t -> {
+    public static Function teamAlignmentRules = t -> {
 
         
         return false;
