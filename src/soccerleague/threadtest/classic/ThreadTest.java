@@ -1,10 +1,14 @@
-package soccerleague.threadtest;
+package soccerleague.threadtest.classic;
+
+import soccerleague.threadtest.classic.AnotherRunnableExample;
+import soccerleague.threadtest.classic.RunnableExample;
+import soccerleague.threadtest.classic.ThreadExample;
 
 public class ThreadTest {
     public static void main(String args[]){
         Thread thread1 = new ThreadExample("Thread 1");
         Thread thread2 = new ThreadExample("Thread 2");
-        Runnable runnable = new RunnableExample();
+        Runnable runnable = new RunnableExample("");
         Runnable anotherRunnable = new AnotherRunnableExample();
         Thread thread3 = new Thread(runnable);
         Thread thread4 = new Thread(anotherRunnable);
@@ -13,6 +17,7 @@ public class ThreadTest {
         thread2.start();
         thread3.start();
         thread4.start();
+
 
 
     }

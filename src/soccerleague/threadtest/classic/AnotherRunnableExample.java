@@ -1,4 +1,4 @@
-package soccerleague.threadtest;
+package soccerleague.threadtest.classic;
 
 public class AnotherRunnableExample implements Runnable{
 
