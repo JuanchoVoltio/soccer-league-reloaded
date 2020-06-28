@@ -12,18 +12,18 @@ import soccerleague.model.DatabaseException;
 import soccerleague.model.dto.Player;
 import soccerleague.model.dto.Storable;
 import soccerleague.model.dto.Team;
+import soccerleague.simulator.SimulatorClass;
+import soccerleague.simulator.Simulator;
 
 public class Main {
 
     public static void main(String[] args) {
        
-        testSaveValidateTeam();
-     
+          testSaveValidateTeam();
+         // testSimulator();
     }
     
-    public static void testSaveValidateTeam(){
-        
-        Controller controller = new Controller();
+    public static void testSimulator(){
         
         Player [] team1 = {new Player("Makaka",GK,1,25,2000),new Player("Makaka",DF,1,25,2000)
                             ,new Player("Makaka",DF,1,25,2000),new Player("Makaka",DF,1,25,2000)
@@ -50,12 +50,48 @@ public class Main {
         Team t2 = new Team(11,"Juventus",team2);
         Team t3 = new Team(12,"Real Madrid",team3);
         
+        Simulator sim1 = new SimulatorClass();
+        System.out.println(sim1.simulateMatch(t1, t3).getVisitorScore());
+        
+    }
+    
+    
+    public static void testSaveValidateTeam(){
+        
+        Controller controller = new Controller();
+        
+        Player [] team1 = {new Player("Makaka",GK,1,25,2000),new Player("Makaka",DF,1,25,2000)
+                            ,new Player("Makaka",DF,1,25,2000),new Player("Makaka",DF,1,25,2000)
+                            ,new Player("Makaka",MD,1,25,2000),new Player("Makaka",MD,1,25,2000)
+                            ,new Player("Makaka",MD,1,25,2000),new Player("Makaka",MD,1,25,2000)
+                            ,new Player("Makaka",DF,1,25,2000),new Player("Makaka",FW,1,25,2000)
+                            ,new Player("Makaka",FW,1,25,2000)};
+        
+        Player [] team2 = {new Player("Makaka",GK,1,25,2000),new Player("Makaka",DF,1,25,2000)
+                            ,new Player("Makaka",DF,1,25,2000),new Player("Makaka",DF,1,25,2000)
+                            ,new Player("Makaka",MD,1,25,2000),new Player("Makaka",MD,1,25,2000)
+                            ,new Player("Makaka",MD,1,25,2000),new Player("Makaka",MD,1,25,2000)
+                            ,new Player("Makaka",FW,1,25,2000),new Player("Makaka",FW,1,25,2000)
+                            ,new Player("Messi",FW,1,25,2000)};
+        
+        Player [] team3 = {new Player("Messi",GK,1,25,2000),new Player("Messi",DF,1,25,2000)
+                            ,new Player("Messi",DF,1,25,2000),new Player("Messi",DF,1,25,2000)
+                            ,new Player("Messi",MD,1,25,2000),new Player("Messi",MD,1,25,2000)
+                            ,new Player("Messi",MD,1,25,2000),new Player("Messi",MD,1,25,2000)
+                            ,new Player("Messi",DF,1,25,2000),new Player("Messi",DF,1,25,2000)
+                            ,new Player("Messi",FW,1,25,2000)};
+        
+        Team t1 = new Team(10,"Milan",team1);
+        Team t2 = new Team(11,"Juventus",team2);
+        Team t3 = new Team(12,"Real Madrid",team3);
+        
         controller.saveValidateTeam(t1, BusinessRules.teamSizeRule, BusinessRules.fixedPositionRules, BusinessRules.exclusivePlayerRule);       
         controller.saveValidateTeam(t2, BusinessRules.teamSizeRule, BusinessRules.fixedPositionRules, BusinessRules.exclusivePlayerRule);       
         controller.saveValidateTeam(t3, BusinessRules.teamSizeRule, BusinessRules.fixedPositionRules, BusinessRules.exclusivePlayerRule);       
         
        // controller.printTeams();
-        
+        Simulator sim1 = new SimulatorClass();
+        System.out.println(sim1.simulateMatch(t1, t3).getFullResume());
     }
     
     
