@@ -12,69 +12,44 @@ public class SimulatorClass implements Simulator{
     @Override
     public MatchResume simulateMatch(Team visitor, Team local) {
        
-        int pAttackVisitor = visitor.getAttackProbability();
         int pAttackLocal = local.getAttackProbability();
-        int pDefenseVisitor = visitor.getAttackProbability();
-        int pDefenseLocal = local.getAttackProbability();
+        int pAttackVisitor = visitor.getAttackProbability();
+        int pDefenseLocal = local.getDefenseProbability();
+        int pDefenseVisitor = visitor.getDefenseProbability();
         
         Match1.setNameLocal(local.getNameTeam());
         Match1.setNameVisitor(visitor.getNameTeam());
         
-        int totalProbabilityAttack = (pAttackVisitor + pAttackLocal)-50;
-        
+        int maxProbabilityAttack = (pAttackVisitor + pAttackLocal);
+               
         for (int i =0; i<90;i++){
             
-            int raffleAttackTeam = (int) Math.floor(Math.random()*(99)+1);
-            int archery = (int) Math.floor(Math.random()*(99)+1);
-            if (totalProbabilityAttack < 100) {
+            int raffleAttackTeam = (int) Math.floor(Math.random()*(399)+1);
+            int raffleArchery = (int) Math.floor(Math.random()*(99)+1);
+                       
+            if (maxProbabilityAttack < 100) {
                 
-                if(raffleAttackTeam < totalProbabilityAttack){
+                if(raffleAttackTeam < pAttackLocal){
                     
-                    switch(raffleAttackTeam){
-                        case 6:
-                            Match1.localAnotation(i);
-                        case 7:
-                            Match1.localAnotation(i);
-                        default:
-                            Match1.localAnotation(i);
-                                
+                    if (raffleArchery > pDefenseVisitor) 
+                      Match1.localAnotation(i);
+                    
+                }else if (raffleAttackTeam < maxProbabilityAttack){
+                    
+                    if (raffleArchery > pDefenseLocal){ 
+                      Match1.visitorAnotation(i);
                     }
-                        if (pAttackVisitor > pAttackLocal){
-
-                            if (raffleAttackTeam < pAttackLocal){
-
-                                if (archery > pDefenseVisitor) 
-                                     Match1.localAnotation(i);
-
-                            }else 
-                                
-                                if (archery > pDefenseLocal){ 
-                                     Match1.visitorAnotation(i);
-                            }
-
-                        }else if (raffleAttackTeam < pAttackVisitor){
-                                    if (archery > pDefenseLocal) 
-                                        Match1.visitorAnotation(i);
-                                }else{
-                                    if (archery > pDefenseVisitor)
-                                        Match1.localAnotation(i);
-                            }   
                 }
-            }else{     
-            
-                 if (raffleAttackTeam < pAttackLocal){
-
-                     if (archery > pDefenseVisitor) 
-                           Match1.localAnotation(i);
-
-                     }else if (archery > pDefenseLocal){ 
-                           Match1.visitorAnotation(i);
-                     }  
+            }else if (raffleAttackTeam < 50){
                     
-            }
+                        if (raffleArchery > pDefenseVisitor)
+                            Match1.localAnotation(i);
+                        
+                  }else if (raffleArchery > pDefenseLocal) 
+                            Match1.visitorAnotation(i);  
+        
           Match1.setEventForMinute(i);
         }
-        
         return Match1;
     }
     
