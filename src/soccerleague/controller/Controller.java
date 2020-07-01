@@ -50,9 +50,9 @@ public class Controller{
        // if (teamSizeRule.test(team) && fixedPositionRules.test(team) && exclusivePlayerRule.test(team, db.getTeam())){
          //  if (teamSizeRule.test(team) && fixedPositionRules.test(team) && exclusivePlayerRule.test(team)){
         
-      public void saveValidateTeam(Team team, Predicate<Team> teamSizeRule, Predicate<Team> fixedPositionRules, BiPredicate<Team, Collection<Team>> exclusivePlayerRule) {
+      public void saveValidateTeam(Team team, Predicate<Team> teamSizeRule, Predicate<Team> fixedPositionRules, BiPredicate<Team, Collection<Team>> exclusivePlayerRule, Predicate<Team> exclusivePlayerRule2) {
 
-        if (teamSizeRule.test(team) && fixedPositionRules.test(team) && exclusivePlayerRule.test(team, db.getTeam())){
+        if (teamSizeRule.test(team) && fixedPositionRules.test(team) && exclusivePlayerRule.test(team, db.getTeam()) && exclusivePlayerRule2.test(team)){
 
             try {
                 db.save(team);       
@@ -75,8 +75,11 @@ public class Controller{
             if (!fixedPositionRules.test(team))
                 System.out.println("La alineación no es permitida");
            // if (!exclusivePlayerRule.test(team, ))
-           if (!exclusivePlayerRule.test(team, db.getTeam()))
+            if (!exclusivePlayerRule.test(team, db.getTeam()))
                 System.out.println("Hay jugadores que están registrados en otros equipos");
+            if (!exclusivePlayerRule2.test(team))
+                System.out.println("Hay jugadores repetidos en la lista");
+                
         }
         
     

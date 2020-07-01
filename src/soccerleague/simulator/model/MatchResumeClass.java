@@ -3,10 +3,10 @@ package soccerleague.simulator.model;
 
 public class MatchResumeClass implements MatchResume {
     
-    private int eventForMinute[][]= new int[2][90];
+    private int[][] eventForMinute= new int[2][90];
     private int localScore;
     private int visitorScore;
-    private int fullResume[] = new int[2];
+    private int[] fullResume = new int[2];
     private String nameLocal;
     private String nameVisitor;
     

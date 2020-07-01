@@ -11,11 +11,12 @@ public class SimulatorClass implements Simulator{
        
     @Override
     public MatchResume simulateMatch(Team visitor, Team local) {
-       
-        int pAttackLocal = local.getAttackProbability();
-        int pAttackVisitor = visitor.getAttackProbability();
-        int pDefenseLocal = local.getDefenseProbability();
-        int pDefenseVisitor = visitor.getDefenseProbability();
+        
+        double PPORCENT = 0.2;
+        int pAttackLocal = (int)(local.getAttackProbability()*PPORCENT);
+        int pAttackVisitor = (int)(visitor.getAttackProbability()*PPORCENT);
+        int pDefenseLocal = (int)(local.getDefenseProbability()*PPORCENT);
+        int pDefenseVisitor = (int)(visitor.getDefenseProbability()*PPORCENT);
         
         Match1.setNameLocal(local.getNameTeam());
         Match1.setNameVisitor(visitor.getNameTeam());
@@ -24,10 +25,10 @@ public class SimulatorClass implements Simulator{
                
         for (int i =0; i<90;i++){
             
-            int raffleAttackTeam = (int) Math.floor(Math.random()*(399)+1);
-            int raffleArchery = (int) Math.floor(Math.random()*(99)+1);
+            int raffleAttackTeam = (int) Math.floor(Math.random()*(99)+1);
+            int raffleArchery = (int) Math.floor(Math.random()*((int)(99*PPORCENT))+1);
                        
-            if (maxProbabilityAttack < 100) {
+            if (maxProbabilityAttack < (int)(100*PPORCENT)) {
                 
                 if(raffleAttackTeam < pAttackLocal){
                     
@@ -40,7 +41,7 @@ public class SimulatorClass implements Simulator{
                       Match1.visitorAnotation(i);
                     }
                 }
-            }else if (raffleAttackTeam < 50){
+            }else if (raffleAttackTeam < (int)(100*PPORCENT/2)){
                     
                         if (raffleArchery > pDefenseVisitor)
                             Match1.localAnotation(i);

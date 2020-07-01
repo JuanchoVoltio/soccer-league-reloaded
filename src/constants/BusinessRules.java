@@ -23,15 +23,19 @@ public class BusinessRules {
                                  
                 t.getName().equals(s.getName()))));
     };
- 
- /*   
-    public static Predicate<Team> exclusivePlayerRule = (team) -> 
+    
+    public static Predicate<Team> exclusivePlayerRule2 = (team) -> 
     {
-       //return Arrays.asList(team.getLineup()).stream().allmatch(t -> t.getName.equals("Messi"));
-      return Arrays.asList(team.getLineup()).stream().noneMatch(p -> p.getName().equals("Messi")); 
-   
+        // List repeated = Arrays.asList(team.getLineup()).stream().map(p -> p.getName()).collect(Collectors.toList());
+         //forEach(current: )
+        
+         return true;/* Arrays.asList(team.getLineup()).stream().allMatch(s->
+                 Arrays.asList(team.getLineup()).stream().noneMatch(t-> 
+                
+                t.getName().equals(s.getName())));
+               */
     };
-*/
+ 
     public static Predicate<Team> fixedPositionRules = t -> 
     {
        List gk = Arrays.asList(t.getLineup()).stream().filter(p -> p.getPosition() == GK).collect(Collectors.toList());

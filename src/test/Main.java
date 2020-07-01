@@ -23,6 +23,46 @@ public class Main {
          // testSimulator();
     }
     
+     public static void testSaveValidateTeam(){
+        
+        Controller controller = new Controller();
+        
+        Player [] team1 = {new Player("Gianluigi",GK,1,25,2000),new Player("Alessio",DF,1,25,2000)
+                            ,new Player("Mateo",DF,1,25,2000),new Player("Leo",DF,1,25,2000)
+                            ,new Player("Lucas",MD,1,25,2000),new Player("Giacomo",MD,1,25,2000)
+                            ,new Player("Marco",MD,1,25,2000),new Player("Hakan",MD,1,25,2000)
+                            ,new Player("Diego",DF,1,25,2000),new Player("Lorenzo",FW,1,25,2000)
+                            ,new Player("Zlatan",FW,1,25,2000)};
+        
+        Player [] team2 = {new Player("Buffon",GK,1,25,2000),new Player("Alex Sandro",DF,1,25,2000)
+                            ,new Player("De Ligt",DF,1,25,2000),new Player("Chiellini",DF,1,25,2000)
+                            ,new Player("Pjanic",MD,1,25,2000),new Player("Rabiot",MD,1,25,2000)
+                            ,new Player("Ramsey",MD,1,25,2000),new Player("Cuadrado",MD,1,25,2000)
+                            ,new Player("Ronaldo",FW,1,25,2000),new Player("Icardi",FW,1,25,2000)
+                            ,new Player("Bernar",FW,1,25,2000)};
+        
+        Player [] team3 = {new Player("Thibaut",GK,1,25,2000),new Player("Dani",DF,1,25,2000)
+                            ,new Player("Marcelo",DF,1,25,2000),new Player("Sergio",DF,1,25,2000)
+                            ,new Player("Isco",MD,1,25,2000),new Player("Toni",MD,1,25,2000)
+                            ,new Player("Luka",MD,1,25,2000),new Player("James",MD,1,25,2000)
+                            ,new Player("Nacho",DF,1,25,2000),new Player("Gareth",DF,1,25,2000)
+                            ,new Player("Messi",FW,1,25,2000)};
+        
+        Team t1 = new Team(10,"Milan",team1);
+        Team t2 = new Team(11,"Juventus",team2);
+        Team t3 = new Team(12,"Real Madrid",team3);
+        
+        controller.saveValidateTeam(t1, BusinessRules.teamSizeRule, BusinessRules.fixedPositionRules, BusinessRules.exclusivePlayerRule,BusinessRules.exclusivePlayerRule2);       
+        controller.saveValidateTeam(t2, BusinessRules.teamSizeRule, BusinessRules.fixedPositionRules, BusinessRules.exclusivePlayerRule,BusinessRules.exclusivePlayerRule2);       
+        controller.saveValidateTeam(t3, BusinessRules.teamSizeRule, BusinessRules.fixedPositionRules, BusinessRules.exclusivePlayerRule,BusinessRules.exclusivePlayerRule2);       
+        
+       // controller.printTeams();
+        Simulator sim1 = new SimulatorClass();
+        System.out.println(sim1.simulateMatch(t3, t1).getFullResume());
+        
+    }
+    
+    
     public static void testSimulator(){
         
         Player [] team1 = {new Player("Makaka",GK,1,25,2000),new Player("Makaka",DF,1,25,2000)
@@ -56,43 +96,7 @@ public class Main {
     }
     
     
-    public static void testSaveValidateTeam(){
-        
-        Controller controller = new Controller();
-        
-        Player [] team1 = {new Player("Makaka",GK,1,25,2000),new Player("Makaka",DF,1,25,2000)
-                            ,new Player("Makaka",DF,1,25,2000),new Player("Makaka",DF,1,25,2000)
-                            ,new Player("Makaka",MD,1,25,2000),new Player("Makaka",MD,1,25,2000)
-                            ,new Player("Makaka",MD,1,25,2000),new Player("Makaka",MD,1,25,2000)
-                            ,new Player("Makaka",DF,1,25,2000),new Player("Makaka",FW,1,25,2000)
-                            ,new Player("Makaka",FW,1,25,2000)};
-        
-        Player [] team2 = {new Player("Makaka",GK,1,25,2000),new Player("Makaka",DF,1,25,2000)
-                            ,new Player("Makaka",DF,1,25,2000),new Player("Makaka",DF,1,25,2000)
-                            ,new Player("Makaka",MD,1,25,2000),new Player("Makaka",MD,1,25,2000)
-                            ,new Player("Makaka",MD,1,25,2000),new Player("Makaka",MD,1,25,2000)
-                            ,new Player("Makaka",FW,1,25,2000),new Player("Makaka",FW,1,25,2000)
-                            ,new Player("Messi",FW,1,25,2000)};
-        
-        Player [] team3 = {new Player("Messi",GK,1,25,2000),new Player("Messi",DF,1,25,2000)
-                            ,new Player("Messi",DF,1,25,2000),new Player("Messi",DF,1,25,2000)
-                            ,new Player("Messi",MD,1,25,2000),new Player("Messi",MD,1,25,2000)
-                            ,new Player("Messi",MD,1,25,2000),new Player("Messi",MD,1,25,2000)
-                            ,new Player("Messi",DF,1,25,2000),new Player("Messi",DF,1,25,2000)
-                            ,new Player("Messi",FW,1,25,2000)};
-        
-        Team t1 = new Team(10,"Milan",team1);
-        Team t2 = new Team(11,"Juventus",team2);
-        Team t3 = new Team(12,"Real Madrid",team3);
-        
-        controller.saveValidateTeam(t1, BusinessRules.teamSizeRule, BusinessRules.fixedPositionRules, BusinessRules.exclusivePlayerRule);       
-        controller.saveValidateTeam(t2, BusinessRules.teamSizeRule, BusinessRules.fixedPositionRules, BusinessRules.exclusivePlayerRule);       
-        controller.saveValidateTeam(t3, BusinessRules.teamSizeRule, BusinessRules.fixedPositionRules, BusinessRules.exclusivePlayerRule);       
-        
-       // controller.printTeams();
-        Simulator sim1 = new SimulatorClass();
-        System.out.println(sim1.simulateMatch(t1, t3).getFullResume());
-    }
+   
     
     
     public static void testMethodtoAddStorable2() throws DatabaseException{
