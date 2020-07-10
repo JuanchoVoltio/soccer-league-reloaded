@@ -9,9 +9,9 @@ import java.util.*;
 
 public class Database {
     //Arreglo para almacenar jugadores
-    private Set<Player> jugadores;
+    private List<Player> jugadores;
     //Arreglo para almacenar Equipos
-    private Set<Team> equipos;
+    private List<Team> equipos;
 
     public Database(){
         this.init();
@@ -19,8 +19,8 @@ public class Database {
 
 
     public void init(){
-        this.jugadores = new TreeSet<Player>();
-        this.equipos = new TreeSet<Team>();
+        this.jugadores = new ArrayList();
+        this.equipos = new ArrayList();
     }
 
     /**
@@ -98,17 +98,19 @@ public class Database {
     public Storable find (Storable e){
 
         Storable result = null;
-        
+        int index = -1;
 
         if (e instanceof Player){
             Player p = (Player)e;
-            if(this.jugadores.contains(p)){
-                result = ((TreeSet<Player>) this.jugadores).first();
+            index = this.jugadores.indexOf(p);
+            if(index >= 0){
+                result = this.jugadores.get(index);
             }
         }else if(e instanceof Team){
             Team t = (Team)e;
-            if(this.equipos.contains(t)){
-                result = ((TreeSet<Team>) this.equipos).first();
+            index = this.equipos.indexOf(t);
+            if(index >= 0){
+                result = this.equipos.get(index);
             }
         }
 
@@ -122,24 +124,24 @@ public class Database {
         Integer code = -1;
 
         if (dto instanceof Player) {
-        	Player p = (Player) dto;
+            Player playerIn = (Player)dto;
             for (Player current : jugadores) {
                 nameId = current.getName();
-                if ((p).getName().equals(null)){
+                if (playerIn.getName().equals(null)){
                     // lanzar exception
-                }else if (nameId.equalsIgnoreCase((p).getName())) {  //convierte el tipo de dato de storable a objeto y trae el atributo con el get
-                    this.jugadores.contains(current);
+                }else if (nameId.equalsIgnoreCase(playerIn.getName())) {  //convierte el tipo de dato de storable a objeto y trae el atributo con el get
+                    this.jugadores.indexOf(current);
                     result = current;
                 }
             }
         }else if(dto instanceof Team){
-            Team t = (Team) dto;
+            Team teamDto = (Team) dto;
             for (Team current : equipos) {
                 code = current.getCodeTeam();
-                if (t.getCodeTeam() != null || ((Team) dto).getCodeTeam() < 0 ){
+                if (teamDto.getCodeTeam() != null || (teamDto.getCodeTeam() < 0 )){
                     // lanzar exception
-                }else if (code == t.getCodeTeam()) {
-                    this.equipos.contains(current);
+                }else if (code == teamDto.getCodeTeam()) {
+                    this.equipos.indexOf(current);
                     result = current;
                 }
             }
@@ -152,7 +154,7 @@ public class Database {
         return this.jugadores.size();
     }
 
-    public Set<Player> getAllPlayers() {
+    public List<Player> getAllPlayers() {
         return this.jugadores;
     }
 

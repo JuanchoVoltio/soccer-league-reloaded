@@ -35,8 +35,8 @@ public class UtilSL {
                         Team p = (Team) storable;
                         System.out.println("NOMBRE EQUIPO(" + (p.getNameTeam() != null ? p.getNameTeam() : "N/A") + ")");
                         System.out.println("CODIGO (" + (p.getCodeTeam() != null ? p.getCodeTeam() : "N/A") + ")");
-                        System.out.println("PROBABILIDAD ATAQUE (" + p.getProbabilityAttac() + ")");
-                        System.out.println("PROBABILIDAD DEFENSA (" + p.getProbabilityDefense() + ")");
+                        System.out.println("PROBABILIDAD ATAQUE (" + p.getAttackProbability() + ")");
+                        System.out.println("PROBABILIDAD DEFENSA (" + p.getDefenseProbability() + ")");
                         System.out.println("--------------------");
                     }
                 }
