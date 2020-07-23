@@ -39,7 +39,7 @@ public class main {
 */
 
             //[4] - Utilizar ResultSet para obtener los datos provenientes de una consulta SQL
-            ResultSet rs = st.executeQuery("SELECT * FROM TEST2;");
+            ResultSet rs = st.executeQuery("SELECT * FROM TEST;");
             Collection<TestObject> collection = new ArrayList<>();
 
             while (rs.next()) {
@@ -57,9 +57,6 @@ public class main {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } 
-        
-        
-        
         
     }
     
