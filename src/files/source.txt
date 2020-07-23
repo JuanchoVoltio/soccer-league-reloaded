@@ -1,0 +1,11 @@
+Gianluigi,GK,1,25,2000
+Alessio,DF,1,25,2000
+Mateo,DF,1,25,2000
+Leo,DF,1,25,2000
+Lucas,MD,1,25,2000
+Giacomo,MD,1,25,2000
+Marco,MD,1,25,2000
+Hakan,MD,1,25,2000
+Diego,DF,1,25,2000
+Lorenzo,FW,1,25,2000
+Zlatan,FW,1,25,2000
